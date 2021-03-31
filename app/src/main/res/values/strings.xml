@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SmartClaims</string>
+    <string name="conditions"><u>Nos conditions générales</u></string>
+    <string name="inscription">Inscription</string>
+    <string name="numeroduontrat">N du contrat</string>
+    <string name="CIN"> CIN</string>
+    <string name="adressemail"> ADRESSE MAIL</string>
+    <string name="Seconnecter">Se connecter</string>
+    <string name="OU"> OU</string>
+    <string name="Sinscrire">s\'inscrire</string>
+    <string name="acceptez">En \'inscrivant , vous acceptez</string>
+</resources>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.marouenekhadhraoui.smartclaims.ui.signin.SignInViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="true"
+                    android:orientation="vertical"
+                    tools:context="com.marouenekhadhraoui.smartclaims.ui.signin.SignInActivity">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutCompat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:gravity="center">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/img_logo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="100dp"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="70dp"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginEnd="70dp"
+                                android:src="@drawable/ic_groupe_16186"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="100dp"
+                                android:fontFamily="@font/roboto_bold"
+                                android:text="Smart Claim"
+                                android:textAlignment="center"
+                                android:textAllCaps="true"
+                                android:textColor="@color/mainblue"
+                                android:textSize="24dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/img_logo" />
+
+
+                        </RelativeLayout>
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="305dp"
+                            android:layout_height="29dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/roboto_bold"
+                            android:text="Connexion"
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="24dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/img_logo" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linearLayoutCompat2"
+                        android:layout_width="350dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.491"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayoutCompat"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <TextView
+                            android:id="@+id/warning"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="horizontal"
+                            android:text="Verifier vos informations"
+                            android:textColor="@android:color/holo_red_dark"
+                            android:textSize="20dp"
+                            android:visibility="@{viewModel.warning.booleanValue()? View.VISIBLE : View.GONE}">
+
+                        </TextView>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/editIdentifiant"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                android:layout_marginTop="20dp"
+                                android:hint="  Identifiant"
+                                android:theme="@style/EditTextThemeOverlay"
+                                app:error="@{viewModel.IdentifiantValidator.error}"
+                                app:errorEnabled="true"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/textView2"
+                                app:startIconDrawable="@drawable/ic_feather_mail">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:backgroundTint="?attr/colorSecondary"
+                                    android:focusable="auto"
+                                    android:inputType="text"
+                                    android:nestedScrollingEnabled="true"
+                                    android:text="@={viewModel.Identifiant}"
+                                    android:textColor="@color/grey" />
+
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="20dp"
+                            android:backgroundTint="@color/white"
+                            android:hint="  Mot de passe"
+                            android:inputType="textPassword"
+                            android:shadowColor="@color/grey"
+                            android:textColor="@color/grey"
+                            android:textColorHint="@color/grey"
+                            android:textCursorDrawable="@null"
+                            app:endIconMode="password_toggle"
+                            app:endIconTint="@color/greylight"
+                            app:error="@{viewModel.PasswordValidator.error}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/editIdentifiant"
+                            app:startIconDrawable="@drawable/ic_feather_lock">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editPassword"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:backgroundTint="?attr/colorSecondary"
+                                android:ems="10"
+                                android:inputType="textPassword"
+                                android:nestedScrollingEnabled="true"
+                                android:password="true"
+                                android:text="@={viewModel.Password}"
+                                android:textColor="@color/grey" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnNon"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="24dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_se_connecter"
+                            android:enabled="@{viewModel.isLoginFormValidMediator}"
+                            android:onClick="@{() -> viewModel.pressBtnSeConnecter()}"
+                            android:text="Se connecter"
+
+                            android:textColor="@color/white"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.522"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/editPassword" />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp"
+                            android:layout_marginTop="10dp">
+
+                            <androidx.appcompat.widget.AppCompatCheckBox
+                                android:id="@+id/se_souvenir"
+                                android:layout_width="15dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center_horizontal"
+
+                                android:layout_marginTop="2dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/custom_checkbox"
+                                android:button="@color/white"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.14"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/btnNon" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/se_souvenir_de_moi"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="4"
+                                android:maxLines="1"
+                                android:text="Se souvenir de moi"
+                                android:textAlignment="center"
+                                android:textColor="@color/greylight"
+                                android:textSize="12dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.3"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/btnNon" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/mot_de_passe"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="4"
+                                android:clickable="true"
+                                android:maxLines="1"
+                                android:onClick="@{() -> viewModel.clickonOublie()}"
+                                android:text="Mot de passe oublié ?"
+                                android:textAlignment="center"
+                                android:textColor="@color/mainblue"
+                                android:textSize="12dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.807"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/btnNon" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="22dp">
+
+                            <View
+                                android:id="@+id/divider2"
+                                android:layout_width="131dp"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/grey"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.171"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/se_souvenir_de_moi" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/ou"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="3dp"
+                                android:layout_weight="1"
+                                android:text="Ou"
+                                android:textAlignment="center"
+                                android:textColor="@color/greylight"
+                                android:textSize="14dp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/btnNon" />
+
+                            <View
+                                android:id="@+id/divider3"
+                                android:layout_width="131dp"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/grey"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.828"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="@+id/se_souvenir_de_moi" />
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/_inscrire"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="18dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_sinscrire"
+                            android:onClick="@{() -> viewModel.pressBtnSinscrire()}"
+                            android:text="S'inscrire"
+                            android:textColor="@color/mainblue"
+                            android:textSize="14dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.498"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/btnNon"
+
+                            />
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="320dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="20dp">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/termes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="16dp"
+                                android:maxLines="1"
+                                android:text="En s'inscrivant , vous acceptez "
+                                android:textAlignment="center"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.193"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/cliquez"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginBottom="10dp"
+
+                                android:maxLines="1"
+                                android:text="@string/conditions"
+                                android:textColor="@color/mainblue"
+                                android:textSize="12dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.927"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</layout>
