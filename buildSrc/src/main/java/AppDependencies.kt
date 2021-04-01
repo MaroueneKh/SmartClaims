@@ -25,6 +25,7 @@ object AppDependencies {
     var spinkit = ("com.github.ybq:Android-SpinKit:1.4.0")
     var navigation = ("androidx.navigation:navigation-fragment-ktx:2.3.4")
     var navigation2 = ("androidx.navigation:navigation-ui-ktx:2.3.4")
+    var indicator = ("com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2")
 
     // For loading and tinting drawables on older versions of the platform
     var appcompatressources = ("androidx.appcompat:appcompat-resources:1.2.0")
@@ -42,6 +43,7 @@ object AppDependencies {
         add(navigation)
         add(navigation2)
         add(appcompatressources)
+        add(indicator)
 
     }
 

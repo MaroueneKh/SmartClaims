@@ -48,7 +48,11 @@ class EnvoyerRequeteActivity : AppCompatActivity() {
                     logger.log("success")
                     if (it.data!!.isEmpty()) {
                         logger.log("null")
-                        Snackbar.make(findViewById(R.id.constraint), "Error from server", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(
+                            findViewById(R.id.constraint),
+                            "Verifier votre mail",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     } else {
                         logger.log("not null")
                         suspend { Snackbar.make(findViewById(R.id.constraint), "Email sent", Snackbar.LENGTH_LONG).show() }

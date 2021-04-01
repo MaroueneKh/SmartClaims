@@ -18,38 +18,38 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.splash.SplashActivity"
+            android:name=".ui.main.MainActivity"
+            android:theme="@style/Theme.SmartClaims" />
+        <activity
+            android:name=".ui.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.splash.SecondSplashActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.SmartClaims"></activity>
-        <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.signin.SignInActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.SmartClaims"></activity>
-        <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.signup.SignUPActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.SmartClaims"></activity>
-        <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.main.MainActivity"
+            android:name=".ui.splash.SecondSplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartClaims" />
         <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.mot_de_passe_oublie.RecuperationMotDePasseActivity"
+            android:name=".ui.signin.SignInActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartClaims" />
         <activity
-            android:name="com.marouenekhadhraoui.smartclaims.ui.mot_de_passe_oublie.EnvoyerRequeteActivity"
+            android:name=".ui.signup.SignUPActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SmartClaims" />
+
+        <activity
+            android:name=".ui.mot_de_passe_oublie.RecuperationMotDePasseActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.SmartClaims" />
+        <activity
+            android:name=".ui.mot_de_passe_oublie.EnvoyerRequeteActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.SmartClaims" />
     </application>
-
 
 </manifest>

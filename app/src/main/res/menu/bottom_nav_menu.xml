@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_icon_home_white"
+        android:iconTint="@color/white"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_dashboard_blue"
+        android:title="" />
+    <item
+        android:id="@+id/profilFragment"
+        android:icon="@drawable/ic_icon_home_profil"
+        android:title="" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_setting_white"
+        android:title="" />
+</menu>

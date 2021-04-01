@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.marouenekhadhraoui.smartclaims.R
@@ -48,9 +49,10 @@ class SecondSplashActivity : AppCompatActivity() {
         val darkObserver = Observer<Boolean> { darkmode ->
             // Update the UI, in this case, a TextView.
             if (darkmode)
-                startActivity(MainActivity())
+                AppCompatDelegate.MODE_NIGHT_YES
             else
-                startActivity(SignInActivity())
+                AppCompatDelegate.MODE_NIGHT_NO
+
         }
         splashViewModel.isdarkenabled.observe(this, darkObserver)
 

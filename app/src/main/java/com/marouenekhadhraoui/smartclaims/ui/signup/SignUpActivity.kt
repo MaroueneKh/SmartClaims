@@ -14,7 +14,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
 import com.marouenekhadhraoui.smartclaims.databinding.SignupActivityBinding
-import com.marouenekhadhraoui.smartclaims.ui.main.MainActivity
 import com.marouenekhadhraoui.smartclaims.ui.signin.SignInActivity
 import com.marouenekhadhraoui.smartclaims.utils.Status
 import com.marouenekhadhraoui.smartclaims.utils.TO_SIGNIN_OR_SIGNUP
@@ -53,7 +52,7 @@ class SignUPActivity : AppCompatActivity() {
                         logger.log(it.data[0].message)
                         signUpViewModel.saveToken(this, it.data[0].message)
                         logger.log("not null")
-                        startActivity(MainActivity())
+                        startActivity(SignInActivity())
                     }
 
                 }
