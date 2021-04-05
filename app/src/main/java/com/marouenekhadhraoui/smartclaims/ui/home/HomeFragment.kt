@@ -6,18 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
 
-    private lateinit var adapter: HomeAdapter
+    @Inject
+    lateinit var adapter: HomeAdapter
 
     var list: List<HomeModel> = listOf()
-    var logger: Logger = Logger()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,16 +34,25 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = HomeAdapter()
-        val list = listOf(
+        fillList()
+        setAdapter()
+
+
+    }
+
+    fun fillList() {
+        list = listOf(
             HomeModel(R.drawable.ic_overturned_car, "Sinistre"),
             HomeModel(R.drawable.ic_tow_truck, "Remorquage"),
             HomeModel(R.drawable.ic_rent_a_car, "Location")
         )
-        // startAnimation()
+    }
+
+    fun setAdapter() {
         adapter.setItem(list)
         viewPager2.adapter = adapter
         dots_indicator.setViewPager2(viewPager2)
+
     }
 
 

@@ -28,9 +28,7 @@ class SecondSplashActivity : AppCompatActivity() {
         bindViewModel()
         subscribeToData()
         setContentView(R.layout.second_splash_activity)
-
     }
-
     private fun subscribeToData() {
         val connObserver = Observer<Boolean> { connected ->
             // Update the UI, in this case, a TextView.
@@ -40,35 +38,26 @@ class SecondSplashActivity : AppCompatActivity() {
                 startActivity(SignInActivity())
         }
         splashViewModel.isConnected.observe(this, connObserver)
-        //   splashViewModel.isConnected.observe(this) { connected ->
-        //     if (connected)
-        //       startActivity(MainActivity())
-        // else
-        //   startActivity(SignInActivity())
-        // }
-        val darkObserver = Observer<Boolean> { darkmode ->
-            // Update the UI, in this case, a TextView.
-            if (darkmode)
-                AppCompatDelegate.MODE_NIGHT_YES
-            else
-                AppCompatDelegate.MODE_NIGHT_NO
 
+        val darkObserver = Observer<Boolean> { darkmode ->
+            val defaultMode = if (darkmode) {
+                AppCompatDelegate.MODE_NIGHT_NO
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
+            AppCompatDelegate.setDefaultNightMode(defaultMode)
         }
         splashViewModel.isdarkenabled.observe(this, darkObserver)
-
         /*  splashViewModel.isdarkenabled.observe(this) { darkmode ->
               val defaultMode = if (darkmode) {
                     AppCompatDelegate.MODE_NIGHT_YES
                 } else {
                     AppCompatDelegate.MODE_NIGHT_NO
                 }
-
                 AppCompatDelegate.setDefaultNightMode(defaultMode)
-
             }
           */
     }
-
     private fun setupBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.second_splash_activity)
         binding.lifecycleOwner = this

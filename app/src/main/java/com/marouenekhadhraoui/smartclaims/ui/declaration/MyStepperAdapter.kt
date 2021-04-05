@@ -1,0 +1,3 @@
+package com.marouenekhadhraoui.smartclaims.ui.declaration
+
+class MyStepperAdapter

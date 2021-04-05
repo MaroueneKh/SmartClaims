@@ -1,7 +1,7 @@
 package com.marouenekhadhraoui.smartclaims.utils
 
 const val TO_SIGNIN_OR_SIGNUP = "TO_SIGNIN_OR_SIGNUP"
-const val BASE_URL = "http://d75ca03b5102.ngrok.io"
+const val BASE_URL = "http://edf6ba7098e1.ngrok.io"
 const val internetErr = "Network is down.\n" +
         "Please check\n" +
         "your INTERNET connection!"

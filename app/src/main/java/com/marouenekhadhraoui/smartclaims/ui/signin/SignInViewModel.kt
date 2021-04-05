@@ -25,8 +25,8 @@ class SignInViewModel @Inject constructor(private val assureRepository: AssureRe
 
 
     val isLoginFormValidMediator = MediatorLiveData<Boolean>()
-    var Identifiant = MutableLiveData<String>()
-    var Password = MutableLiveData<String>()
+    var identifiant = MutableLiveData<String>()
+    var password = MutableLiveData<String>()
 
     //visibility of text view
     private val _warning = MutableLiveData<Boolean>()
@@ -44,14 +44,16 @@ class SignInViewModel @Inject constructor(private val assureRepository: AssureRe
         if (!networkHelper.isNetworkConnected()) {
             logger.log("pas de connexion")
             _assure.postValue(
-                    Resource.error(
-                            data = null,
-                            message = internetErr))
+                Resource.error(
+                    data = null,
+                    message = internetErr
+                )
+            )
         }
         isLoginFormValidMediator.value = false
         _warning.value = false
-        isLoginFormValidMediator.addSource(Identifiant) { validateForm() }
-        isLoginFormValidMediator.addSource(Password) { validateForm() }
+        isLoginFormValidMediator.addSource(identifiant) { validateForm() }
+        isLoginFormValidMediator.addSource(password) { validateForm() }
         _assure.postValue(Resource.loading(null))
 
     }
@@ -63,12 +65,12 @@ class SignInViewModel @Inject constructor(private val assureRepository: AssureRe
     private val _pressLinkoublieEvent = MutableLiveData<Event<Unit>>()
     val ressLinkoublieEvent: LiveData<Event<Unit>> = _pressLinkoublieEvent
 
-    val IdentifiantValidator = LiveDataValidator(Identifiant).apply {
+    val IdentifiantValidator = LiveDataValidator(identifiant).apply {
         //Whenever the condition of the predicate is true, the error message should be emitted
         addRule("identifiant is required") { it.isNullOrBlank() }
     }
 
-    val PasswordValidator = LiveDataValidator(Password).apply {
+    val PasswordValidator = LiveDataValidator(password).apply {
         //Whenever the condition of the predicate is true, the error message should be emitted
         addRule("password is required") { it.isNullOrBlank() }
         addRule("password length must be 10") { it!!.length < 5 }
@@ -106,7 +108,11 @@ class SignInViewModel @Inject constructor(private val assureRepository: AssureRe
             viewModelScope.launch {
                 try {
                     _assure.value = Resource.success(
-                            data = assureRepository.getAssure(Identifiant.value.toString(), Password.value.toString()))
+                        data = assureRepository.getAssure(
+                            identifiant.value.toString(),
+                            password.value.toString()
+                        )
+                    )
                 } catch (exception: Exception) {
                     logger.log("catch")
                     logger.log(exception.message.toString())

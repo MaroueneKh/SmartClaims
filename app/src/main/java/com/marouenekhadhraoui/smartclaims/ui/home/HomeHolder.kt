@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marouenekhadhraoui.smartclaims.R
 import kotlinx.android.synthetic.main.layout_home_item.view.*
+import javax.inject.Inject
 
-class HomeHolder constructor(itemView: View) :
+class HomeHolder @Inject constructor(itemView: View) :
     RecyclerView.ViewHolder(itemView) {
     constructor(parent: ViewGroup) :
             this(

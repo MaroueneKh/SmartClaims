@@ -9,13 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
 import com.marouenekhadhraoui.smartclaims.ui.home.HomeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class SinistreFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
 
-    private lateinit var adapter: SinistreAdapter
+    @Inject
+    lateinit var adapter: SinistreAdapter
 
     var list: List<SinistreModel> = listOf()
     var logger: Logger = Logger()
@@ -33,8 +36,12 @@ class SinistreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = SinistreAdapter()
-        val list = listOf(
+        fillList()
+        setAdapter()
+    }
+
+    fun fillList() {
+        list = listOf(
             SinistreModel(
                 R.drawable.ic_car_collision,
                 "Collision",
@@ -43,10 +50,14 @@ class SinistreFragment : Fragment() {
             SinistreModel(R.drawable.ic_autres, "Autres", "Autres types d'accidents"),
 
             )
+    }
+
+    fun setAdapter() {
         // startAnimation()
         adapter.setItem(list)
         viewPager2.adapter = adapter
         dots_indicator.setViewPager2(viewPager2)
+
     }
 
 }

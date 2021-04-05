@@ -52,6 +52,11 @@ class SignUPActivity : AppCompatActivity() {
                         logger.log(it.data[0].message)
                         signUpViewModel.saveToken(this, it.data[0].message)
                         logger.log("not null")
+                        Snackbar.make(
+                            findViewById(R.id.constraint),
+                            "Compté crée avec succés",
+                            Snackbar.LENGTH_LONG
+                        ).show()
                         startActivity(SignInActivity())
                     }
 

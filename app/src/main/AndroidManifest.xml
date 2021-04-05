@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+
         android:name=".SmartClaimsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_smart_claims2_launcher"
@@ -16,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartClaims"
         android:usesCleartextTraffic="true">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <activity
             android:name=".ui.main.MainActivity"

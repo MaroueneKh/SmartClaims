@@ -3,14 +3,16 @@ package com.marouenekhadhraoui.smartclaims.ui.sinistre
 
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.marouenekhadhraoui.smartclaims.R
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SinistreAdapter : RecyclerView.Adapter<SinistreHolder>() {
+class SinistreAdapter @Inject constructor() : RecyclerView.Adapter<SinistreHolder>() {
     var list: List<SinistreModel> = listOf()
 
 
@@ -20,18 +22,15 @@ class SinistreAdapter : RecyclerView.Adapter<SinistreHolder>() {
 
     override fun onBindViewHolder(holder: SinistreHolder, position: Int) {
         holder.bind(list[position])
-        val b = Bundle()
+        val bundle = bundleOf("position" to position)
         val navDirections: NavDirections = object : NavDirections {
             override fun getArguments(): Bundle {
-                return b
+                return bundle
             }
 
             override fun getActionId(): Int {
-
-                return R.id.action_navigation_home_to_settingsFragment
+                return R.id.action_sinistreFragment_to_declarationFragment
             }
-
-
         }
         holder.itemView.setOnClickListener {
             Navigation.findNavController(it!!).navigate(navDirections)

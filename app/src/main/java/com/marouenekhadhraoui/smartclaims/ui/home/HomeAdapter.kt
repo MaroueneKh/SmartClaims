@@ -6,10 +6,11 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.marouenekhadhraoui.smartclaims.R
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class HomeAdapter : RecyclerView.Adapter<HomeHolder>() {
+class HomeAdapter @Inject constructor() : RecyclerView.Adapter<HomeHolder>() {
     var list: List<HomeModel> = listOf()
 
 

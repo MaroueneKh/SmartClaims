@@ -64,7 +64,7 @@ class SignUpViewModel @Inject constructor(private val assureRepository: AssureRe
     val CinValidator = LiveDataValidator(Cin).apply {
         //Whenever the condition of the predicate is true, the error message should be emitted
         addRule("CIN is required") { it.isNullOrBlank() }
-        addRule("CIN must be 10") { it!!.length != 10 }
+        addRule("CIN must be 8 numbers") { it!!.length != 8 }
     }
     val MailValidator = LiveDataValidator(Mail).apply {
         //Whenever the condition of the predicate is true, the error message should be emitted
