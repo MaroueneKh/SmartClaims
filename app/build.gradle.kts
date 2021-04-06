@@ -88,7 +88,8 @@ android {
         implementation("com.squareup.retrofit2:converter-gson:2.6.0")
         implementation("com.squareup.okhttp3:logging-interceptor:4.5.0")
         implementation("androidx.viewpager2:viewpager2:1.0.0")
-        implementation("com.google.android.gms:play-services:8.4.0")
+        implementation("com.google.android.gms:play-services-maps:17.0.0")
+        implementation("com.google.android.gms:play-services-location:18.0.0")
         implementation("com.stepstone.stepper:material-stepper:4.3.1")
 
         kapt("com.google.dagger:dagger-compiler:2.15")

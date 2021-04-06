@@ -48,24 +48,11 @@
         tools:layout="@layout/fragment_sinistre">
         <action
             android:id="@+id/action_sinistreFragment_to_declarationFragment"
-            app:destination="@id/navigation" />
+            app:destination="@id/declarationFragment" />
     </fragment>
-    <navigation
-        android:id="@+id/navigation"
-        app:startDestination="@id/declarationFragment">
-        <fragment
-            android:id="@+id/declarationFragment"
-            android:name="com.marouenekhadhraoui.smartclaims.ui.declaration.declarationFragment"
-            android:label="fragment_declaration"
-            tools:layout="@layout/fragment_declaration">
-            <action
-                android:id="@+id/action_declarationFragment_to_mapFragment2"
-                app:destination="@id/mapFragment2" />
-        </fragment>
-        <fragment
-            android:id="@+id/mapFragment2"
-            android:name="com.marouenekhadhraoui.smartclaims.ui.map.MapFragment"
-            android:label="fragment_map"
-            tools:layout="@layout/fragment_map" />
-    </navigation>
+    <fragment
+        android:id="@+id/declarationFragment"
+        android:name="com.marouenekhadhraoui.smartclaims.ui.declaration.DeclarationFragment"
+        android:label="fragment_declaration"
+        tools:layout="@layout/fragment_declaration" />
 </navigation>
