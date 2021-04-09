@@ -22,6 +22,12 @@ class CameraViewModel @Inject constructor() : ViewModel(),
     private val _pressBtnTakePicEvent = MutableLiveData<Event<Unit>>()
     var pressBtnTakePicEvent: LiveData<Event<Unit>> = _pressBtnTakePicEvent
 
+    private val _pressBtnBackEvent = MutableLiveData<Event<Unit>>()
+    var pressBtnBackEvent: LiveData<Event<Unit>> = _pressBtnBackEvent
+
+    private val _pressBtnSetFlashEvent = MutableLiveData<Event<Unit>>()
+    var pressBtnSetFlashEvent: LiveData<Event<Unit>> = _pressBtnSetFlashEvent
+
     fun confirmPicture() {
         _pressBtnConfirmEvent.value = Event(Unit)
     }
@@ -32,6 +38,14 @@ class CameraViewModel @Inject constructor() : ViewModel(),
 
     fun takePicture() {
         _pressBtnTakePicEvent.value = Event(Unit)
+    }
+
+    fun backtoPreview() {
+        _pressBtnBackEvent.value = Event(Unit)
+    }
+
+    fun setFlash() {
+        _pressBtnSetFlashEvent.value = Event(Unit)
     }
 
 

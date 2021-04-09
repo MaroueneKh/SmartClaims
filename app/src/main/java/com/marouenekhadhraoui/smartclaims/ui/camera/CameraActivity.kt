@@ -9,10 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -40,8 +37,10 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var preview: Preview
     private lateinit var cameraProvider: ProcessCameraProvider
     private var photoTaken: Boolean = false
+    private var torchenabled: Boolean = false
 
     private lateinit var photoFile: File
+    private lateinit var camera: Camera
 
     @Inject
     lateinit var logger: Logger
@@ -74,6 +73,7 @@ class CameraActivity : AppCompatActivity() {
     private fun takePhoto() {
         photoTaken = true
         cameraProvider.unbind(preview)
+        cameraExecutor.shutdown()
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -94,6 +94,7 @@ class CameraActivity : AppCompatActivity() {
             }
 
             override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+
                 val savedUri = Uri.fromFile(photoFile)
                 uri = savedUri
 
@@ -145,6 +146,8 @@ class CameraActivity : AppCompatActivity() {
                 // Unbind use cases before rebinding
                 cameraProvider.unbindAll()
 
+                camera = cameraProvider.bindToLifecycle(
+                        this, cameraSelector, preview, imageCapture)
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
                         this, cameraSelector, preview, imageCapture)
@@ -189,6 +192,8 @@ class CameraActivity : AppCompatActivity() {
 
         button_ok.isClickable = false
         button_ok.visibility = View.GONE
+        button_backtopreview.isClickable = false
+        button_backtopreview.visibility = View.GONE
         cameraViewModel.pressBtnTakePicEvent.observe(
                 this,
                 androidx.lifecycle.Observer {
@@ -196,6 +201,12 @@ class CameraActivity : AppCompatActivity() {
                         takePhoto()
                         button_ok.isClickable = true
                         button_ok.visibility = View.VISIBLE
+                        button_cancel.isClickable = false
+                        button_cancel.visibility = View.GONE
+                        button_backtopreview.isClickable = true
+                        button_backtopreview.visibility = View.VISIBLE
+                        button_flash.isClickable = false
+                        button_flash.visibility = View.GONE
 
 
                     }
@@ -213,6 +224,47 @@ class CameraActivity : AppCompatActivity() {
                     }
 
                 })
+        cameraViewModel.pressBtnSetFlashEvent.observe(
+                this,
+                androidx.lifecycle.Observer {
+                    it?.let {
+
+                        when (torchenabled) {
+                            true -> {
+                                torchenabled = false
+                                camera.cameraControl.enableTorch(false)
+                            }
+                            false -> {
+                                torchenabled = true
+                                camera.cameraControl.enableTorch(true)
+                            }
+                        }
+
+
+                    }
+
+                })
+
+        cameraViewModel.pressBtnBackEvent.observe(
+                this,
+                androidx.lifecycle.Observer {
+                    it?.let {
+                        startCamera()
+                        button_ok.isClickable = false
+                        button_ok.visibility = View.GONE
+                        button_backtopreview.isClickable = false
+                        button_backtopreview.visibility = View.GONE
+                        button_cancel.isClickable = true
+                        button_cancel.visibility = View.VISIBLE
+                        button_flash.isClickable = true
+                        button_flash.visibility = View.VISIBLE
+
+
+                    }
+
+                })
+
+
         cameraViewModel.pressBtnCancelEvent.observe(
                 this,
                 androidx.lifecycle.Observer {
