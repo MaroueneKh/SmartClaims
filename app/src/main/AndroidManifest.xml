@@ -8,6 +8,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".SmartClaimsApplication"
@@ -18,6 +22,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartClaims"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.camera.CameraActivity"
+            android:label="@string/title_activity_camera"
+            android:theme="@style/Theme.SmartClaims.NoActionBar"></activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera"
+            android:theme="@style/Theme.SmartClaims.NoActionBar" />
+
         <service
             android:name=".ui.map.LocationService"
             android:exported="false"
@@ -32,6 +45,8 @@
 
         <activity
             android:name=".ui.main.MainActivity"
+            android:launchMode="standard"
+            android:noHistory="false"
             android:theme="@style/Theme.SmartClaims" />
         <activity
             android:name=".ui.splash.SplashActivity"

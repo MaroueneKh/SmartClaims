@@ -50,6 +50,7 @@ android {
     }
     dataBinding {
         android.buildFeatures.dataBinding = true
+        android.buildFeatures.viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -91,6 +92,13 @@ android {
         implementation("com.google.android.gms:play-services-maps:17.0.0")
         implementation("com.google.android.gms:play-services-location:18.0.0")
         implementation("com.stepstone.stepper:material-stepper:4.3.1")
+// CameraX core library using camera2 implementation
+        implementation("androidx.camera:camera-camera2:1.0.0-beta07")
+// CameraX Lifecycle Library
+        implementation("androidx.camera:camera-lifecycle:1.0.0-beta07")
+// CameraX View class
+        implementation("androidx.camera:camera-view:1.0.0-alpha14")
+        implementation("com.android.support:design:27.0.2")
 
         kapt("com.google.dagger:dagger-compiler:2.15")
         kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")

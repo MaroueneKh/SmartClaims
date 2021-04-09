@@ -29,4 +29,13 @@
         <item name="colorOnPrimary">@color/white</item>
     </style>
 
+    <style name="Theme.SmartClaims.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.SmartClaims.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.SmartClaims.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

@@ -8,5 +8,14 @@
         android:id="@+id/mapFragment"
         android:name="com.marouenekhadhraoui.smartclaims.ui.map.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_mapFragment_to_scanConstatFragment"
+            app:destination="@id/scanConstatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanConstatFragment"
+        android:name="com.marouenekhadhraoui.smartclaims.ui.scan.ScanConstatFragment"
+        android:label="fragment_scan_constat"
+        tools:layout="@layout/fragment_scan_constat" />
 </navigation>

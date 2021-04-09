@@ -15,7 +15,13 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -25,6 +31,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
+import com.marouenekhadhraoui.smartclaims.databinding.FragmentMapBinding
+import com.marouenekhadhraoui.smartclaims.ui.declaration.DeclarationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,6 +44,12 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
+    private lateinit var binding: FragmentMapBinding
+    private lateinit var navDirections: NavDirections
+    private lateinit var location: Location
+
+    private val viewModel: MapViewModel by viewModels()
+    private val viewModelDeclaration: DeclarationViewModel by activityViewModels()
 
     @Inject
     lateinit var logger: Logger
@@ -49,12 +63,67 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Inflate the layout for this fragment
         //instasiate getfused location with context
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
-        var rootView = inflater.inflate(R.layout.fragment_map, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
+        binding.lifecycleOwner = this
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
-        return rootView
+
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        bindViewModel()
+        setupNavigation()
+
+
+        viewModelDeclaration.stateButton1.postValue("checked")
+
+    }
+
+    fun bindViewModel() {
+        binding.viewModel = viewModel
+    }
+
+    fun setNavDirections() {
+
+        val bundle = bundleOf("lat" to location.latitude, "long" to location.longitude)
+
+        navDirections = object : NavDirections {
+            override fun getArguments(): Bundle {
+                return bundle
+            }
+
+            override fun getActionId(): Int {
+                return R.id.action_mapFragment_to_scanConstatFragment
+            }
+        }
+    }
+
+    fun setupNavigation() {
+
+        viewModel.pressBtnSuivantEvent.observe(
+                viewLifecycleOwner,
+                androidx.lifecycle.Observer {
+                    it?.let {
+                        viewModel.locationDone.observe(
+                                viewLifecycleOwner,
+                                androidx.lifecycle.Observer {
+                                    it?.let {
+                                        if (it) {
+                                            setNavDirections()
+                                            Navigation.findNavController(requireView()).navigate(navDirections)
+
+
+                                        }
+                                    }
+
+                                })
+                    }
+                })
+    }
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onMapReady(googleMap: GoogleMap) {
@@ -103,6 +172,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             override fun onLocationResult(locationResult: LocationResult?) {
                 locationResult ?: return
                 if (locationResult.locations.isNotEmpty()) {
+                    viewModel.locationDone.postValue(true)
+
+                    location = locationResult.lastLocation
                     setMarker(locationResult.lastLocation)
                 }
             }
@@ -115,18 +187,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     // Stop location updates
-    private fun stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-    }
+
 
     override fun onResume() {
         super.onResume()
         startLocationUpdates()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        stopLocationUpdates()
     }
 
     fun requestPermission() {

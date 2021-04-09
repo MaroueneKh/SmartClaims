@@ -23,6 +23,7 @@ class Datapreferences @Inject constructor(@ApplicationContext context: Context) 
         val CONNECTED = booleanPreferencesKey("connected")
         val DARKENABLED = booleanPreferencesKey("darkenabled")
         val TOKEN = stringPreferencesKey("token")
+
     }
 
     val status: Flow<Boolean> = context.dataStore.data
@@ -35,6 +36,7 @@ class Datapreferences @Inject constructor(@ApplicationContext context: Context) 
                 // No type safety.
                 settings[DARKENABLED] ?: false
             }
+
 
     suspend fun setStatus(context: Context) {
         context.dataStore.edit { settings ->
