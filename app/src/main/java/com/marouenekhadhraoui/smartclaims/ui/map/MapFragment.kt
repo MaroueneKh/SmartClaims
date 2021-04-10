@@ -66,6 +66,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false)
         binding.lifecycleOwner = this
 
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment!!.getMapAsync(this)
 
@@ -116,7 +117,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                                             setNavDirections()
                                             Navigation.findNavController(requireView()).navigate(navDirections)
 
-
                                         }
                                     }
 
@@ -127,8 +127,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onMapReady(googleMap: GoogleMap) {
-        logger.log("hellooooo")
         mMap = googleMap
+        logger.log("on map ready")
+
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(
                         requireContext(),
@@ -136,16 +137,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 ) != PackageManager.PERMISSION_GRANTED
         ) {
             //requests are not permitted
+            logger.log("request not permitted")
             requestPermission()
         } else {
-            if (checkGps()) {
-                //gps is enabled in device
-                startLocationUpdates()
-            } else {
-                //gps is not enabled
-                showAlertLocation()
-            }
-
+            launchMap()
         }
 
     }
@@ -162,6 +157,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         locationRequest = LocationRequest()
         locationRequest.interval = 50000
@@ -186,7 +182,63 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         )
     }
 
-    // Stop location updates
+    @RequiresApi(Build.VERSION_CODES.P)
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        logger.log("result of permission")
+        if (requestCode == LOCATION_PERMISSION_REQUEST) {
+            logger.log("hello")
+
+            if ((grantResults.isNotEmpty() &&
+                            grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+
+                launchMap()
+
+            } else {
+                showAlertPermission()
+                // Explain to the user that the feature is unavailable because
+                // the features requires a permission that the user has denied.
+                // At the same time, respect the user's decision. Don't link to
+                // system settings in an effort to convince the user to change
+                // their decision.
+            }
+
+        }
+
+
+    }
+
+    @RequiresApi(Build.VERSION_CODES.P)
+    fun launchMap() {
+        logger.log("request permitted")
+        if (checkGps()) {
+            logger.log("gps permitted")
+            viewModel.isConnected.observe(
+                    viewLifecycleOwner,
+                    androidx.lifecycle.Observer {
+                        it?.let {
+                            if (it) {
+                                logger.log("is connected")
+
+                                startLocationUpdates()
+                            } else {
+                                logger.log("not connected")
+                                showAlertConnection()
+                            }
+
+                        }
+
+                    })
+
+            //gps is enabled in device
+
+        } else {
+            //gps is not enabled
+            logger.log("gps not permitted")
+            showAlertLocation()
+        }
+
+    }
 
 
     override fun onResume() {
@@ -195,7 +247,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     }
 
     fun requestPermission() {
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
+        requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST)
 
     }
@@ -228,6 +280,25 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             startActivity(myIntent)
         }
         dialog.setNegativeButton("Cancel") { _, _ ->
+
+        }
+        dialog.setCancelable(false)
+        dialog.show()
+    }
+
+    private fun showAlertPermission() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setMessage("Veuillez permettez à l'application d'avoir votre localisation")
+        dialog.setNegativeButton("Fermer'") { _, _ ->
+        }
+        dialog.setCancelable(false)
+        dialog.show()
+    }
+
+    private fun showAlertConnection() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setMessage("Vous n'etes pas connecté à internet")
+        dialog.setNegativeButton("Ok") { _, _ ->
 
         }
         dialog.setCancelable(false)

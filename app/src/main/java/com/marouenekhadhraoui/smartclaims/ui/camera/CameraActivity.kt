@@ -187,6 +187,29 @@ class CameraActivity : AppCompatActivity() {
     }
 
 
+    fun setbuttonsOnpressBack() {
+        button_ok.isClickable = false
+        button_ok.visibility = View.GONE
+        button_backtopreview.isClickable = false
+        button_backtopreview.visibility = View.GONE
+        button_cancel.isClickable = true
+        button_cancel.visibility = View.VISIBLE
+        button_flash.isClickable = true
+        button_flash.visibility = View.VISIBLE
+    }
+
+    fun setbuttonsOnpressTakepic() {
+        button_ok.isClickable = true
+        button_ok.visibility = View.VISIBLE
+        button_cancel.isClickable = false
+        button_cancel.visibility = View.GONE
+        button_backtopreview.isClickable = true
+        button_backtopreview.visibility = View.VISIBLE
+        button_flash.isClickable = false
+        button_flash.visibility = View.GONE
+
+    }
+
     private fun setupButtons() {
 
 
@@ -199,16 +222,7 @@ class CameraActivity : AppCompatActivity() {
                 androidx.lifecycle.Observer {
                     it?.let {
                         takePhoto()
-                        button_ok.isClickable = true
-                        button_ok.visibility = View.VISIBLE
-                        button_cancel.isClickable = false
-                        button_cancel.visibility = View.GONE
-                        button_backtopreview.isClickable = true
-                        button_backtopreview.visibility = View.VISIBLE
-                        button_flash.isClickable = false
-                        button_flash.visibility = View.GONE
-
-
+                        setbuttonsOnpressTakepic()
                     }
 
                 })
@@ -216,11 +230,7 @@ class CameraActivity : AppCompatActivity() {
                 this,
                 androidx.lifecycle.Observer {
                     it?.let {
-
-
                         IntentToFragment()
-
-
                     }
 
                 })
@@ -231,12 +241,10 @@ class CameraActivity : AppCompatActivity() {
 
                         when (torchenabled) {
                             true -> {
-                                torchenabled = false
-                                camera.cameraControl.enableTorch(false)
+                                setTorchOff()
                             }
                             false -> {
-                                torchenabled = true
-                                camera.cameraControl.enableTorch(true)
+                                setTorchOn()
                             }
                         }
 
@@ -250,16 +258,7 @@ class CameraActivity : AppCompatActivity() {
                 androidx.lifecycle.Observer {
                     it?.let {
                         startCamera()
-                        button_ok.isClickable = false
-                        button_ok.visibility = View.GONE
-                        button_backtopreview.isClickable = false
-                        button_backtopreview.visibility = View.GONE
-                        button_cancel.isClickable = true
-                        button_cancel.visibility = View.VISIBLE
-                        button_flash.isClickable = true
-                        button_flash.visibility = View.VISIBLE
-
-
+                        setbuttonsOnpressBack()
                     }
 
                 })
@@ -280,6 +279,16 @@ class CameraActivity : AppCompatActivity() {
                 })
     }
 
+    private fun setTorchOn() {
+        torchenabled = true
+        camera.cameraControl.enableTorch(true)
+    }
+
+    private fun setTorchOff() {
+        torchenabled = false
+        camera.cameraControl.enableTorch(false)
+
+    }
 
     override fun onDestroy() {
         super.onDestroy()
