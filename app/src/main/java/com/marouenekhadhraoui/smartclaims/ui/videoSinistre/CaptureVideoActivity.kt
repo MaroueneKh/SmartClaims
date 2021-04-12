@@ -1,6 +1,7 @@
-package com.marouenekhadhraoui.smartclaims.ui.camera
+package com.marouenekhadhraoui.smartclaims.ui.videoSinistre
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,17 +10,21 @@ import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
+import androidx.camera.core.Camera
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.Preview
+import androidx.camera.core.VideoCapture
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
-import com.marouenekhadhraoui.smartclaims.databinding.ActivityCameraBinding
+import com.marouenekhadhraoui.smartclaims.databinding.ActivityCaptureVideoBinding
 import com.marouenekhadhraoui.smartclaims.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_camera.*
+import kotlinx.android.synthetic.main.activity_camera.viewFinder
+import kotlinx.android.synthetic.main.activity_capture_video.*
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -27,11 +32,12 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class CameraActivity : AppCompatActivity() {
-    private var imageCapture: ImageCapture? = null
-    private val cameraViewModel: CameraViewModel by viewModels()
+class CaptureVideoActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCameraBinding
+    private var videoCapture: VideoCapture? = null
+    private val cameraViewModel: CaptureVideoModel by viewModels()
+
+    private lateinit var binding: ActivityCaptureVideoBinding
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var preview: Preview
@@ -39,7 +45,7 @@ class CameraActivity : AppCompatActivity() {
     private var photoTaken: Boolean = false
     private var torchenabled: Boolean = false
 
-    private lateinit var photoFile: File
+    private lateinit var videoFile: File
     private lateinit var camera: Camera
 
     @Inject
@@ -70,37 +76,43 @@ class CameraActivity : AppCompatActivity() {
 
     }
 
-    private fun takePhoto() {
-        photoTaken = true
-        cameraProvider.unbind(preview)
-        cameraExecutor.shutdown()
+    @SuppressLint("RestrictedApi")
+    private fun takeVideo() {
+
+
         // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
+
 
         // Create time-stamped output file to hold the image
-        photoFile = File(
+        videoFile = File(
                 outputDirectory,
-                "ddddd".format(System.currentTimeMillis()) + ".jpg")
+                "ddddd".format(System.currentTimeMillis()) + ".mp4")
 
-        // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-                outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
-            override fun onError(exc: ImageCaptureException) {
-                Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+        videoCapture?.startRecording(videoFile, cameraExecutor, object : VideoCapture.OnVideoSavedCallback {
+
+
+            override fun onVideoSaved(file: File) {
+                val savedUri = Uri.fromFile(videoFile)
+                uri = savedUri
             }
 
-            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-
-                val savedUri = Uri.fromFile(photoFile)
-                uri = savedUri
-
+            override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
 
             }
         })
+
+
+        // Set up image capture listener, which is triggered after photo has
+        // been taken
+
+    }
+
+    fun stopVideo() {
+        photoTaken = true
+        cameraProvider.unbind(preview)
+        cameraExecutor.shutdown()
+
     }
 
 
@@ -123,6 +135,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun startCamera() {
+        logger.log("camera started")
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
 
         cameraProviderFuture.addListener(Runnable {
@@ -136,7 +149,7 @@ class CameraActivity : AppCompatActivity() {
                         it.setSurfaceProvider(viewFinder.createSurfaceProvider())
                     }
 
-            imageCapture = ImageCapture.Builder()
+            videoCapture = VideoCapture.Builder()
                     .build()
 
             // Select back camera as a default
@@ -144,13 +157,13 @@ class CameraActivity : AppCompatActivity() {
 
             try {
                 // Unbind use cases before rebinding
-                cameraProvider.unbindAll()
+
 
                 camera = cameraProvider.bindToLifecycle(
-                        this, cameraSelector, preview, imageCapture)
+                        this, cameraSelector, preview, videoCapture)
                 // Bind use cases to camera
                 cameraProvider.bindToLifecycle(
-                        this, cameraSelector, preview, imageCapture)
+                        this, cameraSelector, preview, videoCapture)
 
             } catch (exc: Exception) {
                 Log.e(TAG, "Use case binding failed", exc)
@@ -178,7 +191,7 @@ class CameraActivity : AppCompatActivity() {
 
 
     private fun setupBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_camera)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_capture_video)
         binding.lifecycleOwner = this
     }
 
@@ -188,40 +201,48 @@ class CameraActivity : AppCompatActivity() {
 
 
     fun setbuttonsOnpressBack() {
-        button_ok.isClickable = false
-        button_ok.visibility = View.GONE
-        button_backtopreview.isClickable = false
-        button_backtopreview.visibility = View.GONE
-        button_cancel.isClickable = true
-        button_cancel.visibility = View.VISIBLE
-        button_flash.isClickable = true
-        button_flash.visibility = View.VISIBLE
+        button_ok2.isClickable = false
+        button_ok2.visibility = View.GONE
+        button_backtopreview2.isClickable = false
+        button_backtopreview2.visibility = View.GONE
+        button_cancel2.isClickable = true
+        button_cancel2.visibility = View.VISIBLE
+        button_flash2.isClickable = true
+        button_flash2.visibility = View.VISIBLE
     }
 
     fun setbuttonsOnpressTakepic() {
-        button_ok.isClickable = true
-        button_ok.visibility = View.VISIBLE
-        button_cancel.isClickable = false
-        button_cancel.visibility = View.GONE
-        button_backtopreview.isClickable = true
-        button_backtopreview.visibility = View.VISIBLE
-        button_flash.isClickable = false
-        button_flash.visibility = View.GONE
+        button_ok2.isClickable = true
+        button_ok2.visibility = View.VISIBLE
+        button_cancel2.isClickable = false
+        button_cancel2.visibility = View.GONE
+        button_backtopreview2.isClickable = true
+        button_backtopreview2.visibility = View.VISIBLE
+        button_flash2.isClickable = false
+        button_flash2.visibility = View.GONE
 
     }
 
     private fun setupButtons() {
+        stopcamera_capture_button2.isClickable = false
+        stopcamera_capture_button2.visibility = View.GONE
 
 
-        button_ok.isClickable = false
-        button_ok.visibility = View.GONE
-        button_backtopreview.isClickable = false
-        button_backtopreview.visibility = View.GONE
+        button_ok2.isClickable = false
+        button_ok2.visibility = View.GONE
+        button_backtopreview2.isClickable = false
+        button_backtopreview2.visibility = View.GONE
         cameraViewModel.pressBtnTakePicEvent.observe(
                 this,
                 androidx.lifecycle.Observer {
                     it?.let {
-                        takePhoto()
+                        logger.log("hneee")
+
+                        camera_capture_button2.visibility = View.GONE
+                        camera_capture_button2.isClickable = false
+                        stopcamera_capture_button2.isClickable = true
+                        stopcamera_capture_button2.visibility = View.VISIBLE
+                        //   takeVideo()
                         setbuttonsOnpressTakepic()
                     }
 
@@ -230,7 +251,6 @@ class CameraActivity : AppCompatActivity() {
                 this,
                 androidx.lifecycle.Observer {
                     it?.let {
-
                         IntentToFragment()
                     }
 
@@ -263,7 +283,17 @@ class CameraActivity : AppCompatActivity() {
                     }
 
                 })
+        cameraViewModel.pressBtnStopVideoEvent.observe(
+                this,
+                androidx.lifecycle.Observer {
+                    it?.let {
 
+                        stopVideo()
+
+
+                    }
+
+                })
 
         cameraViewModel.pressBtnCancelEvent.observe(
                 this,
@@ -271,10 +301,7 @@ class CameraActivity : AppCompatActivity() {
                     it?.let {
                         logger.log("in cancel")
                         if (photoTaken)
-                            photoFile.delete()
-                        cameraProvider.unbind(preview)
-                        cameraExecutor.shutdown()
-
+                            videoFile.delete()
                         finish()
 
 

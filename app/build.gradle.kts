@@ -96,9 +96,12 @@ android {
         implementation("androidx.camera:camera-camera2:1.0.0-beta07")
 // CameraX Lifecycle Library
         implementation("androidx.camera:camera-lifecycle:1.0.0-beta07")
+        implementation("androidx.camera:camera-core:1.0.0-beta07")
 // CameraX View class
         implementation("androidx.camera:camera-view:1.0.0-alpha14")
         implementation("com.android.support:design:27.0.2")
+        implementation("com.github.bumptech.glide:glide:4.12.0")
+        implementation("io.coil-kt:coil:1.1.1")
 
         kapt("com.google.dagger:dagger-compiler:2.15")
         kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")

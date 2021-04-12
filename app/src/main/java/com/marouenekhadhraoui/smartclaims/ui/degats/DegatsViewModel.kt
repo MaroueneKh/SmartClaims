@@ -1,5 +1,4 @@
-package com.marouenekhadhraoui.smartclaims.ui.scan
-
+package com.marouenekhadhraoui.smartclaims.ui.degats
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LiveData
@@ -10,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ScanConstatViewModel @Inject constructor() : ViewModel(),
+class DegatsViewModel @Inject constructor() : ViewModel(),
         LifecycleObserver {
 
 

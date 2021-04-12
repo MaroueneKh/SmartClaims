@@ -17,5 +17,23 @@
         android:id="@+id/scanConstatFragment"
         android:name="com.marouenekhadhraoui.smartclaims.ui.scan.ScanConstatFragment"
         android:label="fragment_scan_constat"
-        tools:layout="@layout/fragment_scan_constat" />
+        tools:layout="@layout/fragment_scan_constat">
+        <action
+            android:id="@+id/action_scanConstatFragment_to_videoSinistreFragment"
+            app:destination="@id/videoSinistreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoSinistreFragment"
+        android:name="com.marouenekhadhraoui.smartclaims.ui.videoSinistre.VideoSinistreFragment"
+        android:label="VideoSinistreFragment"
+        tools:layout="@layout/fragment_video_sinistre">
+        <action
+            android:id="@+id/action_videoSinistreFragment_to_degatsFragment"
+            app:destination="@id/degatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/degatsFragment"
+        android:name="com.marouenekhadhraoui.smartclaims.ui.degats.DegatsFragment"
+        android:label="DegatsFragment"
+        tools:layout="@layout/fragment_degats" />
 </navigation>

@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -23,11 +24,11 @@
         android:theme="@style/Theme.SmartClaims"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.camera.CameraActivity"
-            android:label="@string/title_activity_camera"
+            android:name=".ui.videoSinistre.CaptureVideoActivity"
+            android:label="@string/title_activity_capture_video"
             android:theme="@style/Theme.SmartClaims.NoActionBar"></activity>
         <activity
-            android:name=".CameraActivity"
+            android:name=".ui.camera.CameraActivity"
             android:label="@string/title_activity_camera"
             android:theme="@style/Theme.SmartClaims.NoActionBar" />
 

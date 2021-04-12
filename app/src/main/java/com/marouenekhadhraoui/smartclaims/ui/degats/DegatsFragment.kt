@@ -1,5 +1,4 @@
-package com.marouenekhadhraoui.smartclaims.ui.scan
-
+package com.marouenekhadhraoui.smartclaims.ui.degats
 
 import android.Manifest
 import android.app.Activity
@@ -22,8 +21,10 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
-import com.marouenekhadhraoui.smartclaims.databinding.FragmentScanConstatBinding
+import com.marouenekhadhraoui.smartclaims.databinding.FragmentDegatsBinding
 import com.marouenekhadhraoui.smartclaims.ui.declaration.DeclarationViewModel
+import com.marouenekhadhraoui.smartclaims.ui.scan.OptionsBottomSheetFragment
+import com.marouenekhadhraoui.smartclaims.ui.scan.ScanConstatFragment
 import com.marouenekhadhraoui.smartclaims.utils.fadeTo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_scan_constat.*
@@ -31,12 +32,12 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class ScanConstatFragment : Fragment() {
+class DegatsFragment : Fragment() {
 
 
-    private lateinit var binding: FragmentScanConstatBinding
+    private lateinit var binding: FragmentDegatsBinding
 
-    private val viewModel: ScanConstatViewModel by activityViewModels()
+    private val viewModel: DegatsViewModel by activityViewModels()
 
     private val viewModelDeclaration: DeclarationViewModel by activityViewModels()
 
@@ -57,7 +58,7 @@ class ScanConstatFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_scan_constat, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_degats, container, false)
         binding.lifecycleOwner = this
 
 
@@ -69,8 +70,8 @@ class ScanConstatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         bindViewModel()
-        viewModelDeclaration.stateButton1.postValue("done")
-        viewModelDeclaration.stateButton2.postValue("checked")
+        viewModelDeclaration.stateButton3.postValue("done")
+        viewModelDeclaration.stateButton4.postValue("checked")
         img_scan1.fadeTo(false)
         logger.log("button 1 in scan : " + viewModelDeclaration.stateButton1.value.toString())
         btnSuivant.visibility = View.GONE
@@ -250,6 +251,7 @@ class ScanConstatFragment : Fragment() {
 
         }
     }
+
     private fun showAlertGallery() {
         val dialog = AlertDialog.Builder(requireContext())
         dialog.setMessage("Veuillez accepter la permission ")

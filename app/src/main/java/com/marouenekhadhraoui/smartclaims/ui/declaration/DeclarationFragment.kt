@@ -52,6 +52,30 @@ class DeclarationFragment : Fragment() {
         btn2.setBackgroundResource(R.drawable.step_button_checked)
     }
 
+    fun setButton2done() {
+        divider4.setBackgroundColor(resources.getColor(R.color.mainblue))
+
+        btn2.setBackgroundResource(R.drawable.step_button_done)
+        btn2.text = ""
+    }
+
+    fun setButton3checked() {
+
+        btn5.setBackgroundResource(R.drawable.step_button_checked)
+    }
+
+    fun setButton3done() {
+        divider5.setBackgroundColor(resources.getColor(R.color.mainblue))
+
+        btn5.setBackgroundResource(R.drawable.step_button_done)
+        btn5.text = ""
+    }
+
+    fun setButton4checked() {
+
+        btn6.setBackgroundResource(R.drawable.step_button_checked)
+    }
+
     fun manageStepper() {
         logger.log("manage stepper")
         viewModel.stateButton1.observe(
@@ -72,6 +96,7 @@ class DeclarationFragment : Fragment() {
                     it?.let {
                         when (it) {
                             "checked" -> setButton2checked()
+                            "done" -> setButton2done()
                         }
                     }
 
@@ -80,6 +105,11 @@ class DeclarationFragment : Fragment() {
                 viewLifecycleOwner,
                 androidx.lifecycle.Observer {
                     it?.let {
+                        when (it) {
+                            "checked" -> setButton3checked()
+                            "done" -> setButton3done()
+
+                        }
 
                     }
 
@@ -88,6 +118,11 @@ class DeclarationFragment : Fragment() {
                 viewLifecycleOwner,
                 androidx.lifecycle.Observer {
                     it?.let {
+                        when (it) {
+                            "checked" -> setButton4checked()
+
+
+                        }
 
                     }
 

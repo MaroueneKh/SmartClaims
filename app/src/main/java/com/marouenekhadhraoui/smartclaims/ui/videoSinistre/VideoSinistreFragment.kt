@@ -1,12 +1,11 @@
-package com.marouenekhadhraoui.smartclaims.ui.scan
-
+package com.marouenekhadhraoui.smartclaims.ui.videoSinistre
 
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
@@ -22,30 +21,34 @@ import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
-import com.marouenekhadhraoui.smartclaims.databinding.FragmentScanConstatBinding
+import com.marouenekhadhraoui.smartclaims.databinding.FragmentVideoSinistreBinding
 import com.marouenekhadhraoui.smartclaims.ui.declaration.DeclarationViewModel
 import com.marouenekhadhraoui.smartclaims.utils.fadeTo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_scan_constat.*
+import kotlinx.android.synthetic.main.fragment_scan_constat.img_logo2
+import kotlinx.android.synthetic.main.fragment_scan_constat.textView3
+import kotlinx.android.synthetic.main.fragment_scan_constat.textView4
+import kotlinx.android.synthetic.main.fragment_video_sinistre.*
+import kotlinx.android.synthetic.main.fragment_video_sinistre.btnNon
+import kotlinx.android.synthetic.main.fragment_video_sinistre.btnSuivant
 import javax.inject.Inject
 
-
 @AndroidEntryPoint
-class ScanConstatFragment : Fragment() {
+class VideoSinistreFragment : Fragment() {
 
 
-    private lateinit var binding: FragmentScanConstatBinding
+    private lateinit var binding: FragmentVideoSinistreBinding
 
-    private val viewModel: ScanConstatViewModel by activityViewModels()
+    private val viewModel: VideoSinistreViewModel by activityViewModels()
 
     private val viewModelDeclaration: DeclarationViewModel by activityViewModels()
 
     private val LOCATION_PERMISSION_REQUEST = 102
 
-
     var i: Int = 0
-
     private lateinit var navDirections: NavDirections
+
 
     @Inject
     lateinit var logger: Logger
@@ -56,8 +59,9 @@ class ScanConstatFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        //instasiate getfused location with context
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_scan_constat, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_video_sinistre, container, false)
         binding.lifecycleOwner = this
 
 
@@ -65,19 +69,18 @@ class ScanConstatFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle
+    ?) {
         super.onViewCreated(view, savedInstanceState)
-
         bindViewModel()
-        viewModelDeclaration.stateButton1.postValue("done")
-        viewModelDeclaration.stateButton2.postValue("checked")
-        img_scan1.fadeTo(false)
-        logger.log("button 1 in scan : " + viewModelDeclaration.stateButton1.value.toString())
+        viewModelDeclaration.stateButton2.postValue("done")
+        viewModelDeclaration.stateButton3.postValue("checked")
+
         btnSuivant.visibility = View.GONE
         btnSuivant.isClickable = false
+        pressScanButton()
 
         pressGalleryInFragment()
-        pressScanButton()
         pressSuivantButton()
 
 
@@ -90,9 +93,32 @@ class ScanConstatFragment : Fragment() {
                 requestPermission()
             } else {
 
-                pickImageFromGallery()
+                pickVideoFromGallery()
             }
 
+
+        })
+        viewModel.pressCameraEvent.observe(viewLifecycleOwner, Observer {
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                //requests are not permitted
+                requestPermission()
+            } else {
+
+                pickVideoFromCamera()
+            }
+
+
+        })
+    }
+
+    private fun pressScanButton() {
+        viewModel.pressBtnTakeVideoEvent.observe(viewLifecycleOwner, Observer {
+
+            parentFragmentManager.let {
+                OptionsBottomSheetVideoFragment.newInstance(Bundle()).apply {
+                    show(it, tag)
+                }
+            }
 
         })
     }
@@ -107,31 +133,16 @@ class ScanConstatFragment : Fragment() {
             }
 
             override fun getActionId(): Int {
-                return R.id.action_scanConstatFragment_to_videoSinistreFragment
+                return R.id.action_videoSinistreFragment_to_degatsFragment
             }
         }
     }
-
 
     private fun pressSuivantButton() {
         setNavDirections()
 
         viewModel.pressBtnSuivantEvent.observe(viewLifecycleOwner, Observer {
             Navigation.findNavController(requireView()).navigate(navDirections)
-
-        })
-    }
-
-    private fun pressScanButton() {
-
-
-        viewModel.pressBtnScanEvent.observe(viewLifecycleOwner, Observer {
-
-            parentFragmentManager.let {
-                OptionsBottomSheetFragment.newInstance(Bundle()).apply {
-                    show(it, tag)
-                }
-            }
 
         })
     }
@@ -148,7 +159,7 @@ class ScanConstatFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED) {
                     //permission from popup granted
-                    pickImageFromGallery()
+                    pickVideoFromGallery()
                 } else {
                     showAlertGallery()
 
@@ -157,12 +168,22 @@ class ScanConstatFragment : Fragment() {
         }
     }
 
-    private fun pickImageFromGallery() {
+    private fun pickVideoFromGallery() {
         //Intent to pick image
         val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
+        intent.type = "video/*"
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
+
+    private fun pickVideoFromCamera() {
+        Intent(MediaStore.ACTION_VIDEO_CAPTURE).also { takeVideoIntent ->
+            takeVideoIntent.resolveActivity(requireActivity().packageManager)?.also {
+                startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE)
+            }
+        }
+
+    }
+
 
     companion object {
         //image pick code
@@ -171,17 +192,17 @@ class ScanConstatFragment : Fragment() {
         //Permission code
         private val PERMISSION_CODE = 1001
 
-        @JvmStatic
-        fun newInstance(): ScanConstatFragment {
+        private val REQUEST_VIDEO_CAPTURE = 1
 
-            return ScanConstatFragment()
+        @JvmStatic
+        fun newInstance(): VideoSinistreFragment {
+
+            return VideoSinistreFragment()
         }
     }
 
-
     fun requestPermission() {
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), LOCATION_PERMISSION_REQUEST)
-
     }
 
     //handle result of picked image
@@ -189,68 +210,65 @@ class ScanConstatFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         logger.log("in result")
         logger.log(requestCode.toString())
-
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             logger.log("from gallery")
             i++
-
             img_logo2.fadeTo(false)
             textView3.fadeTo(false)
             textView4.fadeTo(false)
-            img_scan1.fadeTo(true)
+            vid_scan1.fadeTo(true)
             when (i) {
-
                 1 -> {
-                    img_scan1.fadeTo(true)
-
-                    img_scan1.setImageURI(data?.data)
-
+                    vid_scan1.fadeTo(true)
+                    vid_scan1.setVideoURI(data?.data)
+                    vid_scan1.seekTo(100)
                 }
                 2 -> {
-
-                    img_scan2.fadeTo(true)
-                    img_scan2.setImageURI(data?.data)
+                    vid_scan2.fadeTo(true)
+                    vid_scan2.setVideoURI(data?.data)
+                    vid_scan1.seekTo(100)
+                    vid_scan2.seekTo(100)
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false
                     btnSuivant.visibility = View.VISIBLE
                     btnSuivant.isClickable = true
                     setNavDirections()
-
-
                 }
             }
-
-
-        } else if (resultCode == Activity.RESULT_OK && requestCode == 22) {
+        } else if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_VIDEO_CAPTURE) {
             logger.log("from gallery")
             i++
-
             img_logo2.fadeTo(false)
             textView3.fadeTo(false)
             textView4.fadeTo(false)
-            img_scan1.fadeTo(true)
             when (i) {
 
                 1 -> {
-                    img_scan1.fadeTo(true)
-
-                    img_scan1.setImageURI(data?.extras?.get("ActivityResult") as Uri?)
+                    progress1.visibility = View.VISIBLE
+                    vid_scan1.setVideoURI(data?.data)
+                    vid_scan1.seekTo(100)
+                    vid_scan1.fadeTo(true)
+                    progress1.visibility = View.GONE
 
                 }
                 2 -> {
-                    img_scan2.fadeTo(true)
-                    img_scan2.setImageURI(data?.extras?.get("ActivityResult") as Uri?)
+
+                    vid_scan2.setVideoURI(data?.data)
+                    vid_scan1.seekTo(100)
+                    vid_scan2.seekTo(100)
+                    vid_scan2.fadeTo(true)
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false
                     btnSuivant.visibility = View.VISIBLE
                     btnSuivant.isClickable = true
                     setNavDirections()
+
                 }
             }
-
         }
     }
-    private fun showAlertGallery() {
+
+    private fun showPagerDialog() {
         val dialog = AlertDialog.Builder(requireContext())
         dialog.setMessage("Veuillez accepter la permission ")
         dialog.setPositiveButton("Settings") { _, _ ->
@@ -263,5 +281,16 @@ class ScanConstatFragment : Fragment() {
         dialog.show()
     }
 
-
+    private fun showAlertGallery() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setMessage("Veuillez accepter la permission ")
+        dialog.setPositiveButton("Settings") { _, _ ->
+            val myIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(myIntent)
+        }
+        dialog.setNegativeButton("Cancel") { _, _ ->
+        }
+        dialog.setCancelable(false)
+        dialog.show()
+    }
 }

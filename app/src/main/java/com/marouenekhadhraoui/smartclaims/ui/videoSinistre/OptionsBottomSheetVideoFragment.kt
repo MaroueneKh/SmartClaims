@@ -1,4 +1,4 @@
-package com.marouenekhadhraoui.smartclaims.ui.scan
+package com.marouenekhadhraoui.smartclaims.ui.videoSinistre
 
 import android.app.Activity
 import android.content.Intent
@@ -9,20 +9,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.marouenekhadhraoui.smartclaims.R
-import com.marouenekhadhraoui.smartclaims.ui.camera.CameraActivity
 import com.marouenekhadhraoui.smartclaims.utils.Event
 import com.marouenekhadhraoui.smartclaims.utils.TO_SIGNIN_OR_SIGNUP
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.bottomsheet.*
 
 @AndroidEntryPoint
-class OptionsBottomSheetFragment : BottomSheetDialogFragment() {
+class OptionsBottomSheetVideoFragment : BottomSheetDialogFragment() {
 
 
     val REQUESTCODE = 102
 
 
-    private val viewModelDeclaration: ScanConstatViewModel by activityViewModels()
+    private val viewModelVideo: VideoSinistreViewModel by activityViewModels()
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -40,15 +39,14 @@ class OptionsBottomSheetFragment : BottomSheetDialogFragment() {
         //iv_close.setOnClickListener { dismissAllowingStateLoss() }
         txt_gallery.setOnClickListener {
             dismissAllowingStateLoss()
-            viewModelDeclaration._pressGalleryEvent.value = Event(Unit)
+            viewModelVideo._pressGalleryEvent.value = Event(Unit)
 
 
         }
         txt_camera.setOnClickListener {
             this
             dismissAllowingStateLoss()
-            val intent = Intent(activity, CameraActivity::class.java)
-            startActivityForResult(intent, 22)
+            viewModelVideo._pressCameraEvent.value = Event(Unit)
         }
     }
 
@@ -73,8 +71,8 @@ class OptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(bundle: Bundle): OptionsBottomSheetFragment {
-            val fragment = OptionsBottomSheetFragment()
+        fun newInstance(bundle: Bundle): OptionsBottomSheetVideoFragment {
+            val fragment = OptionsBottomSheetVideoFragment()
             fragment.arguments = bundle
             return fragment
         }

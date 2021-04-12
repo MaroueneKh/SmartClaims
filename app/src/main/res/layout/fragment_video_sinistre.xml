@@ -7,13 +7,13 @@
 
         <variable
             name="viewModel"
-            type="com.marouenekhadhraoui.smartclaims.ui.scan.ScanConstatViewModel" />
+            type="com.marouenekhadhraoui.smartclaims.ui.videoSinistre.VideoSinistreViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.map.MapFragment">
+        tools:context=".ui.videoSinistre.VideoSinistreFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_marginStart="140dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="140dp"
-                android:src="@drawable/ic_iscanner"
+                android:src="@drawable/ic_icon_material_videocam"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +42,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="50dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="@string/Scanner2"
+                android:text="@string/videotake"
                 android:textAlignment="center"
 
                 android:textSize="24sp"
@@ -71,8 +71,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/img_scan1"
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="200dp"
+                        android:indeterminate="true"
+                        app:indicatorColor="@color/mainblue"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <VideoView
+                        android:id="@+id/vid_scan1"
                         android:layout_width="150dp"
                         android:layout_height="189dp"
                         android:layout_alignParentStart="true"
@@ -80,11 +95,27 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="32dp"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/img_scan2"
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="200dp"
+                        android:layout_marginEnd="16dp"
+                        android:indeterminate="true"
+                        app:indicatorColor="@color/mainblue"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <VideoView
+                        android:id="@+id/vid_scan2"
                         android:layout_width="150dp"
                         android:layout_height="189dp"
                         android:layout_alignParentStart="true"
@@ -92,6 +123,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_marginTop="32dp"
                         android:layout_marginEnd="16dp"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -129,7 +161,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
                         android:fontFamily="@font/roboto_regular"
-                        android:text="@string/Merciscanner"
+                        android:text="@string/Mercivideo"
                         android:textAlignment="center"
                         android:textColor="@color/greylight"
                         android:textSize="18sp"
@@ -153,8 +185,8 @@
                 android:layout_marginBottom="14dp"
                 android:layout_weight="1"
                 android:background="@drawable/button_se_connecter"
-                android:onClick="@{() -> viewModel.clickonScan()}"
-                android:text="@string/Scanner"
+                android:onClick="@{() -> viewModel.clickonTakeVideo()}"
+                android:text="@string/UploadVideos"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -178,6 +210,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
