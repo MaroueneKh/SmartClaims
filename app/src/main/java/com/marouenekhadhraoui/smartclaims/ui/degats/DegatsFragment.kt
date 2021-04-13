@@ -19,6 +19,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.GridLayoutManager
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
 import com.marouenekhadhraoui.smartclaims.databinding.FragmentDegatsBinding
@@ -27,7 +28,13 @@ import com.marouenekhadhraoui.smartclaims.ui.scan.OptionsBottomSheetFragment
 import com.marouenekhadhraoui.smartclaims.ui.scan.ScanConstatFragment
 import com.marouenekhadhraoui.smartclaims.utils.fadeTo
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_scan_constat.*
+import kotlinx.android.synthetic.main.fragment_degats.*
+import kotlinx.android.synthetic.main.fragment_scan_constat.btnNon
+import kotlinx.android.synthetic.main.fragment_scan_constat.btnSuivant
+import kotlinx.android.synthetic.main.fragment_scan_constat.img_logo2
+import kotlinx.android.synthetic.main.fragment_scan_constat.textView3
+import kotlinx.android.synthetic.main.fragment_scan_constat.textView4
+import okhttp3.internal.notify
 import javax.inject.Inject
 
 
@@ -47,6 +54,14 @@ class DegatsFragment : Fragment() {
     var i: Int = 0
 
     private lateinit var navDirections: NavDirections
+
+    private lateinit var gridLayoutManager: GridLayoutManager
+
+    @Inject
+    lateinit var adapter: DegatsAdapter
+
+    var list: ArrayList<DegatsModel> = ArrayList()
+
 
     @Inject
     lateinit var logger: Logger
@@ -72,7 +87,6 @@ class DegatsFragment : Fragment() {
         bindViewModel()
         viewModelDeclaration.stateButton3.postValue("done")
         viewModelDeclaration.stateButton4.postValue("checked")
-        img_scan1.fadeTo(false)
         logger.log("button 1 in scan : " + viewModelDeclaration.stateButton1.value.toString())
         btnSuivant.visibility = View.GONE
         btnSuivant.isClickable = false
@@ -137,6 +151,18 @@ class DegatsFragment : Fragment() {
         })
     }
 
+    fun fillList(uri: Uri) {
+
+        list.add(DegatsModel(uri))
+    }
+
+    fun setAdapter() {
+        gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView.layoutManager = gridLayoutManager
+        adapter.setItem(list)
+        recyclerView.adapter = adapter
+    }
+
 
     fun bindViewModel() {
         binding.viewModel = viewModel
@@ -191,6 +217,7 @@ class DegatsFragment : Fragment() {
         logger.log("in result")
         logger.log(requestCode.toString())
 
+
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             logger.log("from gallery")
             i++
@@ -198,25 +225,26 @@ class DegatsFragment : Fragment() {
             img_logo2.fadeTo(false)
             textView3.fadeTo(false)
             textView4.fadeTo(false)
-            img_scan1.fadeTo(true)
-            when (i) {
+            recyclerView.fadeTo(true)
+            when (i < 4) {
 
-                1 -> {
-                    img_scan1.fadeTo(true)
-
-                    img_scan1.setImageURI(data?.data)
+                (true) -> {
+                    if (data != null) {
+                        fillList(data.data!!)
+                        setAdapter()
+                    }
 
                 }
-                2 -> {
-
-                    img_scan2.fadeTo(true)
-                    img_scan2.setImageURI(data?.data)
-                    btnNon.visibility = View.GONE
-                    btnNon.isClickable = false
-                    btnSuivant.visibility = View.VISIBLE
-                    btnSuivant.isClickable = true
-                    setNavDirections()
-
+                (false) -> {
+                    if (data != null) {
+                        fillList(data.data!!)
+                        recyclerView.notify()
+                        btnNon.visibility = View.GONE
+                        btnNon.isClickable = false
+                        btnSuivant.visibility = View.VISIBLE
+                        btnSuivant.isClickable = true
+                        setNavDirections()
+                    }
 
                 }
             }
@@ -225,27 +253,30 @@ class DegatsFragment : Fragment() {
         } else if (resultCode == Activity.RESULT_OK && requestCode == 22) {
             logger.log("from gallery")
             i++
-
+            recyclerView.fadeTo(true)
             img_logo2.fadeTo(false)
             textView3.fadeTo(false)
             textView4.fadeTo(false)
-            img_scan1.fadeTo(true)
-            when (i) {
+            when (i < 4) {
+                (true) -> {
+                    if (data != null) {
+                        fillList(data.extras!!.get("ActivityResult") as Uri)
+                        setAdapter()
+                    }
 
-                1 -> {
-                    img_scan1.fadeTo(true)
-
-                    img_scan1.setImageURI(data?.extras?.get("ActivityResult") as Uri?)
 
                 }
-                2 -> {
-                    img_scan2.fadeTo(true)
-                    img_scan2.setImageURI(data?.extras?.get("ActivityResult") as Uri?)
-                    btnNon.visibility = View.GONE
-                    btnNon.isClickable = false
-                    btnSuivant.visibility = View.VISIBLE
-                    btnSuivant.isClickable = true
-                    setNavDirections()
+                (false) -> {
+                    if (data != null) {
+                        fillList(data.extras!!.get("ActivityResult") as Uri)
+                        setAdapter()
+                        btnNon.visibility = View.GONE
+                        btnNon.isClickable = false
+                        btnSuivant.visibility = View.VISIBLE
+                        btnSuivant.isClickable = true
+                        setNavDirections()
+                    }
+
                 }
             }
 

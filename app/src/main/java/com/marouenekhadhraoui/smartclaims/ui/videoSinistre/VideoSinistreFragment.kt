@@ -226,7 +226,6 @@ class VideoSinistreFragment : Fragment() {
                 2 -> {
                     vid_scan2.fadeTo(true)
                     vid_scan2.setVideoURI(data?.data)
-                    vid_scan1.seekTo(100)
                     vid_scan2.seekTo(100)
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false

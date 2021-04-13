@@ -34,6 +34,7 @@ import com.marouenekhadhraoui.smartclaims.R
 import com.marouenekhadhraoui.smartclaims.databinding.FragmentMapBinding
 import com.marouenekhadhraoui.smartclaims.ui.declaration.DeclarationViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_map.*
 import javax.inject.Inject
 
 
@@ -75,6 +76,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        llProgressBar.visibility = View.VISIBLE
 
         bindViewModel()
         setupNavigation()
@@ -172,6 +174,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
                     location = locationResult.lastLocation
                     setMarker(locationResult.lastLocation)
+                    llProgressBar.visibility = View.GONE
                 }
             }
         }
@@ -219,7 +222,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                         it?.let {
                             if (it) {
                                 logger.log("is connected")
-
                                 startLocationUpdates()
                             } else {
                                 logger.log("not connected")

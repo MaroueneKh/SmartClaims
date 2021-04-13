@@ -35,8 +35,8 @@
 
         <ImageButton
             android:id="@+id/button_ok"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="30dp"
             android:background="@drawable/ic_pic__confirm"
@@ -50,8 +50,8 @@
 
         <ImageButton
             android:id="@+id/button_cancel"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/ic_cancel_pic"
@@ -62,8 +62,8 @@
 
         <ImageButton
             android:id="@+id/button_flash"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/ic_arrow_left_white"
             android:elevation="2dp"
@@ -75,8 +75,8 @@
 
         <ImageButton
             android:id="@+id/button_backtopreview"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/ic_arrow_left_white"
