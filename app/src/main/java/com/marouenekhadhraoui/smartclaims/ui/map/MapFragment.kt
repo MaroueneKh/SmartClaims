@@ -52,6 +52,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private val viewModel: MapViewModel by viewModels()
     private val viewModelDeclaration: DeclarationViewModel by activityViewModels()
 
+
     @Inject
     lateinit var logger: Logger
     private val LOCATION_PERMISSION_REQUEST = 101
@@ -74,6 +75,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         llProgressBar.visibility = View.VISIBLE
@@ -105,26 +107,32 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     fun setupNavigation() {
 
         viewModel.pressBtnSuivantEvent.observe(
-                viewLifecycleOwner,
-                androidx.lifecycle.Observer {
-                    it?.let {
-                        viewModel.locationDone.observe(
-                                viewLifecycleOwner,
-                                androidx.lifecycle.Observer {
-                                    it?.let {
-                                        if (it) {
-                                            setNavDirections()
-                                            Navigation.findNavController(requireView()).navigate(navDirections)
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                it?.let {
+                    viewModel.locationDone.observe(
+                        viewLifecycleOwner,
+                        androidx.lifecycle.Observer {
+                            it?.let {
+                                if (it) {
+                                    viewModel.saveLocation(
+                                        requireContext(),
+                                        location.latitude.toString(),
+                                        location.longitude.toString()
+                                    )
+                                    setNavDirections()
+                                    Navigation.findNavController(requireView()).navigate(navDirections)
 
-                                        }
-                                    }
+                                }
+                            }
 
-                                })
-                    }
-                })
+                        })
+                }
+            })
     }
 
     @RequiresApi(Build.VERSION_CODES.P)

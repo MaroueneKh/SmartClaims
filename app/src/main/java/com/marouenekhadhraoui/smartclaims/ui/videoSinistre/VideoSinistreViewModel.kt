@@ -1,18 +1,19 @@
 package com.marouenekhadhraoui.smartclaims.ui.videoSinistre
 
+import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.marouenekhadhraoui.smartclaims.data.local.Datapreferences
 import com.marouenekhadhraoui.smartclaims.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
-class VideoSinistreViewModel @Inject constructor() : ViewModel(),
-        LifecycleObserver {
+class VideoSinistreViewModel @Inject constructor(private val apprefs: Datapreferences) :
+    ViewModel(),
+    LifecycleObserver {
 
 
     var _pressGalleryEvent = MutableLiveData<Event<Unit>>()
@@ -36,6 +37,19 @@ class VideoSinistreViewModel @Inject constructor() : ViewModel(),
 
     fun clickonSuivant() {
         _pressBtnSuivantEvent.value = Event(Unit)
+    }
+
+    fun saveVideo(context: Context, vid1: String, vid2: String) {
+        viewModelScope.launch {
+            try {
+                apprefs.setvid1(context, vid1)
+                apprefs.setvid2(context, vid2)
+            } catch (exception: Exception) {
+
+
+            }
+        }
+
     }
 
 

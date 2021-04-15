@@ -62,14 +62,19 @@ class DegatsFragment : Fragment() {
 
     var list: ArrayList<DegatsModel> = ArrayList()
 
+    lateinit var uri1: Uri
+    lateinit var uri2: Uri
+    lateinit var uri3: Uri
+    lateinit var uri4: Uri
+
 
     @Inject
     lateinit var logger: Logger
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
 
@@ -122,7 +127,7 @@ class DegatsFragment : Fragment() {
             }
 
             override fun getActionId(): Int {
-                return R.id.action_scanConstatFragment_to_videoSinistreFragment
+                return R.id.action_degatsFragment_to_validationSinistreFragment
             }
         }
     }
@@ -132,6 +137,13 @@ class DegatsFragment : Fragment() {
         setNavDirections()
 
         viewModel.pressBtnSuivantEvent.observe(viewLifecycleOwner, Observer {
+            viewModel.saveDegats(
+                requireContext(),
+                uri1.toString(),
+                uri2.toString(),
+                uri3.toString(),
+                uri4.toString()
+            )
             Navigation.findNavController(requireView()).navigate(navDirections)
 
         })
@@ -161,6 +173,7 @@ class DegatsFragment : Fragment() {
         recyclerView.layoutManager = gridLayoutManager
         adapter.setItem(list)
         recyclerView.adapter = adapter
+
     }
 
 
@@ -226,18 +239,36 @@ class DegatsFragment : Fragment() {
             textView3.fadeTo(false)
             textView4.fadeTo(false)
             recyclerView.fadeTo(true)
-            when (i < 4) {
+            when (i) {
 
-                (true) -> {
+                (1) -> {
                     if (data != null) {
                         fillList(data.data!!)
+                        uri1 = data.data!!
                         setAdapter()
                     }
 
                 }
-                (false) -> {
+                (2) -> {
                     if (data != null) {
                         fillList(data.data!!)
+                        uri2 = data.data!!
+                        setAdapter()
+                    }
+
+                }
+                (3) -> {
+                    if (data != null) {
+                        fillList(data.data!!)
+                        uri3 = data.data!!
+                        setAdapter()
+                    }
+
+                }
+                (4) -> {
+                    if (data != null) {
+                        fillList(data.data!!)
+                        uri4 = data.data!!
                         recyclerView.notify()
                         btnNon.visibility = View.GONE
                         btnNon.isClickable = false
@@ -257,18 +288,36 @@ class DegatsFragment : Fragment() {
             img_logo2.fadeTo(false)
             textView3.fadeTo(false)
             textView4.fadeTo(false)
-            when (i < 4) {
-                (true) -> {
+            when (i) {
+                (1) -> {
                     if (data != null) {
                         fillList(data.extras!!.get("ActivityResult") as Uri)
+                        uri1 = data.extras!!.get("ActivityResult") as Uri
+                        setAdapter()
+                    }
+                }
+                (2) -> {
+                    if (data != null) {
+                        fillList(data.extras!!.get("ActivityResult") as Uri)
+                        uri2 = data.extras!!.get("ActivityResult") as Uri
                         setAdapter()
                     }
 
 
                 }
-                (false) -> {
+                (3) -> {
                     if (data != null) {
                         fillList(data.extras!!.get("ActivityResult") as Uri)
+                        uri3 = data.extras!!.get("ActivityResult") as Uri
+                        setAdapter()
+                    }
+
+
+                }
+                (4) -> {
+                    if (data != null) {
+                        fillList(data.extras!!.get("ActivityResult") as Uri)
+                        uri4 = data.extras!!.get("ActivityResult") as Uri
                         setAdapter()
                         btnNon.visibility = View.GONE
                         btnNon.isClickable = false

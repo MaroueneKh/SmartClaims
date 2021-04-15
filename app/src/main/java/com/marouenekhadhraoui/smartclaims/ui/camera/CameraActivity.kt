@@ -79,8 +79,9 @@ class CameraActivity : AppCompatActivity() {
 
         // Create time-stamped output file to hold the image
         photoFile = File(
-                outputDirectory,
-                "ddddd".format(System.currentTimeMillis()) + ".jpg")
+            outputDirectory,
+            "ddddd" + System.currentTimeMillis().toString() + ".jpg"
+        )
 
         // Create output options object which contains file + metadata
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()

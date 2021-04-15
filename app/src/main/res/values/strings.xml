@@ -30,6 +30,7 @@
     <string name="UploadVideos">Uploader les videos</string>
     <string name="Scanner2">Scan des documents</string>
     <string name="ajouterimages">Ajouter Images</string>
+    <string name="dossier">Dossier sinistre</string>
     <string name="Lieu">Lieu de l\'accident</string>
     <string name="aucun">Aucun fichier trouvé</string>
     <string name="Merciscanner">Merci de scanner le constat et l\'attestation de l\'assureur B</string>

@@ -1,20 +1,24 @@
 package com.marouenekhadhraoui.smartclaims.ui.map
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.marouenekhadhraoui.smartclaims.Logger
+import com.marouenekhadhraoui.smartclaims.data.local.Datapreferences
 import com.marouenekhadhraoui.smartclaims.newtork.NetworkHelper
 import com.marouenekhadhraoui.smartclaims.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @RequiresApi(Build.VERSION_CODES.M)
 @HiltViewModel
-class MapViewModel @Inject constructor(var logger: Logger, var networkHelper: NetworkHelper) : ViewModel(), LifecycleObserver {
+class MapViewModel @Inject constructor(
+    var logger: Logger,
+    var networkHelper: NetworkHelper,
+    private val apprefs: Datapreferences
+) : ViewModel(), LifecycleObserver {
 
     var locationDone = MutableLiveData<Boolean>()
 
@@ -32,6 +36,20 @@ class MapViewModel @Inject constructor(var logger: Logger, var networkHelper: Ne
 
     fun pressBtnSuivant() {
         _pressBtnSuivantEvent.value = Event(Unit)
+    }
+
+    fun saveLocation(context: Context, lat: String, long: String) {
+        viewModelScope.launch {
+            try {
+                apprefs.setlat(context, lat)
+                apprefs.setlong(context, long)
+            } catch (exception: Exception) {
+                logger.log("catch ")
+                logger.log(exception.message.toString())
+
+            }
+        }
+
     }
 
 

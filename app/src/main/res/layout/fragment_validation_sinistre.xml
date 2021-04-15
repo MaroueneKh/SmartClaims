@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.marouenekhadhraoui.smartclaims.ui.degats.DegatsViewModel" />
+            type="com.marouenekhadhraoui.smartclaims.ui.validationsinistre.ValidationSinistreViewModel" />
     </data>
 
     <FrameLayout
@@ -36,13 +36,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="305dp"
+                android:layout_height="29dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="50dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="@string/ajouterimages"
+                android:text="@string/dossier"
                 android:textAlignment="center"
 
                 android:textSize="24sp"
@@ -55,10 +55,11 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="110dp"
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="80dp"
                 app:cardCornerRadius="2dp"
+                app:cardUseCompatPadding="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -66,88 +67,42 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="2dp"
-                    android:clipToPadding="false"
-                    android:padding="4dp"
-                    android:visibility="visible">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/viewPager2Validation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="50dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toTopOf="@+id/dots_indicator"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/img_logo2"
+
+                    </androidx.viewpager2.widget.ViewPager2>
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/dots_indicatorValidation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="160dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="160dp"
-                        android:src="@drawable/ic_groupe_16039"
+                        android:layout_marginBottom="16dp"
+                        app:dotsColor="@color/greylight"
+                        app:dotsCornerRadius="8dp"
+                        app:dotsSize="16dp"
+                        app:dotsSpacing="4dp"
+                        app:dotsWidthFactor="2.5"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/textView3"
-                        android:layout_width="305dp"
-                        android:layout_height="29dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginEnd="16dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/aucun"
-                        android:textAlignment="center"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/img_logo2" />
-
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:fontFamily="@font/roboto_regular"
-                        android:text="@string/MerciDegats"
-                        android:textAlignment="center"
-                        android:textColor="@color/greylight"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
+                        app:progressMode="true"
+                        app:selectedDotColor="@color/mainblue" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
             </com.google.android.material.card.MaterialCardView>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnNon"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="14dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_se_connecter"
-                android:onClick="@{() -> viewModel.clickonScan()}"
-                android:text="@string/Scanner"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSuivant"

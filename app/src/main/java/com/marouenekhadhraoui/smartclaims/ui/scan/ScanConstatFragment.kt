@@ -42,6 +42,9 @@ class ScanConstatFragment : Fragment() {
 
     private val LOCATION_PERMISSION_REQUEST = 102
 
+    lateinit var uri1: Uri
+    lateinit var uri2: Uri
+
 
     var i: Int = 0
 
@@ -117,6 +120,7 @@ class ScanConstatFragment : Fragment() {
         setNavDirections()
 
         viewModel.pressBtnSuivantEvent.observe(viewLifecycleOwner, Observer {
+            viewModel.saveScan(requireContext(), uri1.toString(), uri2.toString())
             Navigation.findNavController(requireView()).navigate(navDirections)
 
         })
@@ -204,12 +208,14 @@ class ScanConstatFragment : Fragment() {
                     img_scan1.fadeTo(true)
 
                     img_scan1.setImageURI(data?.data)
+                    uri1 = data?.data!!
 
                 }
                 2 -> {
 
                     img_scan2.fadeTo(true)
                     img_scan2.setImageURI(data?.data)
+                    uri2 = data?.data!!
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false
                     btnSuivant.visibility = View.VISIBLE
@@ -235,11 +241,13 @@ class ScanConstatFragment : Fragment() {
                     img_scan1.fadeTo(true)
 
                     img_scan1.setImageURI(data?.extras?.get("ActivityResult") as Uri?)
+                    uri1 = data?.extras?.get("ActivityResult") as Uri
 
                 }
                 2 -> {
                     img_scan2.fadeTo(true)
                     img_scan2.setImageURI(data?.extras?.get("ActivityResult") as Uri?)
+                    uri2 = data?.extras?.get("ActivityResult") as Uri
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false
                     btnSuivant.visibility = View.VISIBLE

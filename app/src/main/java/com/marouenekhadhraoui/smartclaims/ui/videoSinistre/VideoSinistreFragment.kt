@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.Settings
@@ -19,6 +20,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
 import com.marouenekhadhraoui.smartclaims.databinding.FragmentVideoSinistreBinding
@@ -49,14 +51,17 @@ class VideoSinistreFragment : Fragment() {
     var i: Int = 0
     private lateinit var navDirections: NavDirections
 
+    lateinit var uri1: Uri
+    lateinit var uri2: Uri
+
 
     @Inject
     lateinit var logger: Logger
 
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         //instasiate getfused location with context
@@ -140,8 +145,8 @@ class VideoSinistreFragment : Fragment() {
 
     private fun pressSuivantButton() {
         setNavDirections()
-
         viewModel.pressBtnSuivantEvent.observe(viewLifecycleOwner, Observer {
+            viewModel.saveVideo(requireContext(), uri1.toString(), uri2.toString())
             Navigation.findNavController(requireView()).navigate(navDirections)
 
         })
@@ -217,16 +222,17 @@ class VideoSinistreFragment : Fragment() {
             textView3.fadeTo(false)
             textView4.fadeTo(false)
             vid_scan1.fadeTo(true)
+
             when (i) {
                 1 -> {
                     vid_scan1.fadeTo(true)
-                    vid_scan1.setVideoURI(data?.data)
-                    vid_scan1.seekTo(100)
+                    uri1 = data?.data!!
+                    Glide.with(requireContext()).load(uri1).thumbnail(0.1f).into(vid_scan1)
                 }
                 2 -> {
                     vid_scan2.fadeTo(true)
-                    vid_scan2.setVideoURI(data?.data)
-                    vid_scan2.seekTo(100)
+                    uri2 = data?.data!!
+                    Glide.with(requireContext()).load(uri2).thumbnail(0.1f).into(vid_scan2)
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false
                     btnSuivant.visibility = View.VISIBLE
@@ -243,18 +249,15 @@ class VideoSinistreFragment : Fragment() {
             when (i) {
 
                 1 -> {
-                    progress1.visibility = View.VISIBLE
-                    vid_scan1.setVideoURI(data?.data)
-                    vid_scan1.seekTo(100)
+                    uri1 = data?.data!!
+                    Glide.with(requireContext()).load(uri1).thumbnail(0.1f).into(vid_scan1)
                     vid_scan1.fadeTo(true)
-                    progress1.visibility = View.GONE
-
                 }
                 2 -> {
 
-                    vid_scan2.setVideoURI(data?.data)
-                    vid_scan1.seekTo(100)
-                    vid_scan2.seekTo(100)
+                    uri2 = data?.data!!
+                    Glide.with(requireContext()).load(uri2).thumbnail(0.1f).into(vid_scan2)
+                    logger.log(uri2.toString())
                     vid_scan2.fadeTo(true)
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false

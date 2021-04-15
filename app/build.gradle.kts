@@ -77,10 +77,8 @@ android {
 
     dependencies {
         implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-        //app libs
         implementation(AppDependencies.appLibraries)
         implementation("androidx.annotation:annotation:1.1.0")
-        // For loading and tinting drawables on older versions of the platform
         implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
         implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2")
@@ -101,13 +99,13 @@ android {
         implementation("androidx.camera:camera-view:1.0.0-alpha14")
         implementation("com.android.support:design:27.0.2")
         implementation("com.github.bumptech.glide:glide:4.12.0")
-        implementation("io.coil-kt:coil:1.1.1")
+        implementation("io.coil-kt:coil:1.2.0")
 
         kapt("com.google.dagger:dagger-compiler:2.15")
         kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")
         kapt(AppDependencies.kapt)
         kapt("com.android.databinding:compiler:3.2.0-alpha10")
-        //test libs
+        // test libs
         testImplementation(AppDependencies.testLibraries)
         androidTestImplementation(AppDependencies.androidTestLibraries)
     }

@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @Singleton
 class SinistreAdapter @Inject constructor() : RecyclerView.Adapter<SinistreHolder>() {
     var list: List<SinistreModel> = listOf()
+    lateinit var viewModel: SinistreViewModel
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SinistreHolder {
@@ -22,6 +23,7 @@ class SinistreAdapter @Inject constructor() : RecyclerView.Adapter<SinistreHolde
 
     override fun onBindViewHolder(holder: SinistreHolder, position: Int) {
         holder.bind(list[position])
+
         val bundle = bundleOf("position" to position)
         val navDirections: NavDirections = object : NavDirections {
             override fun getArguments(): Bundle {
@@ -33,7 +35,21 @@ class SinistreAdapter @Inject constructor() : RecyclerView.Adapter<SinistreHolde
             }
         }
         holder.itemView.setOnClickListener {
-            Navigation.findNavController(it!!).navigate(navDirections)
+            when (position) {
+                (0) -> {
+                    viewModel.saveType(holder.itemView.context, "collision")
+                    Navigation.findNavController(it!!).navigate(navDirections)
+                }
+
+                (1) -> {
+                    //  viewModel.saveType(holder.itemView.context,"sinistre")
+
+                }
+
+
+            }
+
+
         }
     }
 

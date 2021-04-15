@@ -1,5 +1,7 @@
 object Versions {
     //app level
+    const val ktlintPlugin = "8.2.0"
+    const val ktlint = "0.34.2"
     const val gradle = "4.0.1"
     const val kotlin = "1.4.0"
     const val hilt = "2.33-beta"

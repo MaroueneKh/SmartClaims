@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface ApiService {
     @Headers(
-            "Content-Type: application/json",
+        "Content-Type: application/json"
     )
     @POST("api/assure")
     suspend fun getAssure(@Query(value = "identifiant") mail: String,

@@ -35,5 +35,14 @@
         android:id="@+id/degatsFragment"
         android:name="com.marouenekhadhraoui.smartclaims.ui.degats.DegatsFragment"
         android:label="DegatsFragment"
-        tools:layout="@layout/fragment_degats" />
+        tools:layout="@layout/fragment_degats">
+        <action
+            android:id="@+id/action_degatsFragment_to_validationSinistreFragment"
+            app:destination="@id/validationSinistreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/validationSinistreFragment"
+        android:name="com.marouenekhadhraoui.smartclaims.ui.validationsinistre.ValidationSinistreFragment"
+        android:label="ValidationSinistreFragment"
+        tools:layout="@layout/fragment_validation_sinistre" />
 </navigation>
