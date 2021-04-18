@@ -11,4 +11,6 @@ interface ApiHelper {
     suspend fun postAssure(mail: String, contrat: String): List<SignupModel>
 
     suspend fun sendRequest(mail: String): List<AssureModel>
+
+    suspend fun newDossier(token: String, type: String, lat: String, lang: String): List<SignupModel>
 }

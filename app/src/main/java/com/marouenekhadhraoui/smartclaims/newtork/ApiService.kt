@@ -21,5 +21,12 @@ interface ApiService {
     @POST("api/requestmail")
     suspend fun sendRequest(@Query(value = "mail") mail: String): List<AssureModel>
 
+    @POST("api/newDossier")
+    suspend fun newDossier(@Query(value = "token") mail: String,
+                           @Query(value = "type") type: String,
+                           @Query(value = "lat") lat: String,
+                           @Query(value = "lang") lang: String
+    ): List<SignupModel>
+
 
 }

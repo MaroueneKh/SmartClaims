@@ -23,26 +23,18 @@
                 android:id="@+id/constraintLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnback"
-                    android:layout_width="30dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/ic_arrow_left"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn1"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginStart="56dp"
                     android:layout_marginTop="32dp"
                     android:background="@drawable/uncheckedbutton"
                     android:text="1"

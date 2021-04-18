@@ -36,6 +36,7 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var preview: Preview
     private lateinit var cameraProvider: ProcessCameraProvider
+
     private var photoTaken: Boolean = false
     private var torchenabled: Boolean = false
 
@@ -44,7 +45,7 @@ class CameraActivity : AppCompatActivity() {
 
     @Inject
     lateinit var logger: Logger
-    lateinit var uri: Uri
+    var uri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +71,28 @@ class CameraActivity : AppCompatActivity() {
 
     }
 
+    private fun confirmPic() {
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        // Set up image capture listener, which is triggered after photo has
+        // been taken
+        imageCapture!!.takePicture(
+                outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
+            override fun onError(exc: ImageCaptureException) {
+                Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+            }
+
+            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+
+                val savedUri = Uri.fromFile(photoFile)
+                uri = savedUri
+                IntentToFragment()
+
+
+            }
+        })
+
+    }
     private fun takePhoto() {
         photoTaken = true
         cameraProvider.unbind(preview)
@@ -83,25 +106,9 @@ class CameraActivity : AppCompatActivity() {
             "ddddd" + System.currentTimeMillis().toString() + ".jpg"
         )
 
+
         // Create output options object which contains file + metadata
-        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        // Set up image capture listener, which is triggered after photo has
-        // been taken
-        imageCapture.takePicture(
-                outputOptions, ContextCompat.getMainExecutor(this), object : ImageCapture.OnImageSavedCallback {
-            override fun onError(exc: ImageCaptureException) {
-                Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-            }
-
-            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-
-                val savedUri = Uri.fromFile(photoFile)
-                uri = savedUri
-
-
-            }
-        })
     }
 
 
@@ -231,8 +238,7 @@ class CameraActivity : AppCompatActivity() {
                 this,
                 androidx.lifecycle.Observer {
                     it?.let {
-
-                        IntentToFragment()
+                        confirmPic()
                     }
 
                 })

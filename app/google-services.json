@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "748594375835",
+    "project_id": "smartsclaims",
+    "storage_bucket": "smartsclaims.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748594375835:android:22d841df042bef3563aa3e",
+        "android_client_info": {
+          "package_name": "com.marouenekhadhraoui.smartclaims"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748594375835-dgmvpr5ro9h0ijcu5d7m5mlnaolealkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAzVQ-idliBMCCB4wy0mQBzDDj1FG9h_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748594375835-dgmvpr5ro9h0ijcu5d7m5mlnaolealkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

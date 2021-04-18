@@ -25,8 +25,8 @@ class ValidationHolder constructor(itemView: View) :
             itemView.image4.setImageURI(validation.uri4)
 
         } else {
-            Glide.with(itemView.context).load(validation.uri3).thumbnail(0.1f).into(itemView.image3)
-            Glide.with(itemView.context).load(validation.uri4).thumbnail(0.1f).into(itemView.image4)
+            Glide.with(itemView.context).load(validation.uri3).centerInside().thumbnail(0.8f).into(itemView.image3)
+            Glide.with(itemView.context).load(validation.uri4).centerInside().thumbnail(0.8f).into(itemView.image4)
 
         }
 

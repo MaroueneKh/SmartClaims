@@ -8,6 +8,7 @@ class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : Ap
     override suspend fun getAssure(mail: String, password: String): List<AssureModel> = apiService.getAssure(mail, password)
     override suspend fun postAssure(mail: String, contrat: String): List<SignupModel> = apiService.postAssure(mail, contrat)
     override suspend fun sendRequest(mail: String): List<AssureModel> = apiService.sendRequest(mail)
+    override suspend fun newDossier(token: String, type: String, lat: String, lang: String): List<SignupModel> = apiService.newDossier(token, type, lat, lang)
 
 }
 

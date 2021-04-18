@@ -26,6 +26,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAPTNg63-NFTlo2x2oKJyky6o4_ZAacHYA</string>
     <string name="Suivant">Suivant</string>
+    <string name="Valider">Valider</string>
     <string name="Scanner">Scanner les fichiers</string>
     <string name="UploadVideos">Uploader les videos</string>
     <string name="Scanner2">Scan des documents</string>

@@ -173,6 +173,9 @@ class DegatsFragment : Fragment() {
         recyclerView.layoutManager = gridLayoutManager
         adapter.setItem(list)
         recyclerView.adapter = adapter
+        recyclerView.addItemDecoration(
+                MarginItemDecoration(10)
+        )
 
     }
 

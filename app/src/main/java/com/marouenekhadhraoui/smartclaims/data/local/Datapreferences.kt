@@ -35,25 +35,30 @@ class Datapreferences @Inject constructor(@ApplicationContext context: Context) 
     }
 
     val status: Flow<Boolean> = context.dataStore.data
-        .map { settings ->
-            // No type safety.
-            settings[CONNECTED] ?: false
-        }
+            .map { settings ->
+                // No type safety.
+                settings[CONNECTED] ?: false
+            }
     val darkmode: Flow<Boolean> = context.dataStore.data
-        .map { settings ->
-            // No type safety.
-            settings[DARKENABLED] ?: false
-        }
+            .map { settings ->
+                // No type safety.
+                settings[DARKENABLED] ?: false
+            }
+    val token: Flow<String> = context.dataStore.data
+            .map { settings ->
+                // No type safety.
+                settings[TOKEN] ?: "false"
+            }
     val type: Flow<String> = context.dataStore.data
-        .map { settings ->
-            // No type safety.
-            settings[TYPE] ?: "false"
-        }
+            .map { settings ->
+                // No type safety.
+                settings[TYPE] ?: "false"
+            }
 
     val lat: Flow<String> = context.dataStore.data
-        .map { settings ->
-            // No type safety.
-            settings[LAT] ?: "false"
+            .map { settings ->
+                // No type safety.
+                settings[LAT] ?: "false"
         }
     val long: Flow<String> = context.dataStore.data
         .map { settings ->

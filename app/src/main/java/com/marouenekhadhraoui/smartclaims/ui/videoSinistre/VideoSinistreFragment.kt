@@ -227,12 +227,12 @@ class VideoSinistreFragment : Fragment() {
                 1 -> {
                     vid_scan1.fadeTo(true)
                     uri1 = data?.data!!
-                    Glide.with(requireContext()).load(uri1).thumbnail(0.1f).into(vid_scan1)
+                    Glide.with(requireContext()).load(uri1).centerCrop().thumbnail(1f).into(vid_scan1)
                 }
                 2 -> {
                     vid_scan2.fadeTo(true)
                     uri2 = data?.data!!
-                    Glide.with(requireContext()).load(uri2).thumbnail(0.1f).into(vid_scan2)
+                    Glide.with(requireContext()).load(uri2).centerCrop().thumbnail(1f).into(vid_scan2)
                     btnNon.visibility = View.GONE
                     btnNon.isClickable = false
                     btnSuivant.visibility = View.VISIBLE
@@ -250,13 +250,13 @@ class VideoSinistreFragment : Fragment() {
 
                 1 -> {
                     uri1 = data?.data!!
-                    Glide.with(requireContext()).load(uri1).thumbnail(0.1f).into(vid_scan1)
+                    Glide.with(requireContext()).load(uri1).centerCrop().thumbnail(1f).into(vid_scan1)
                     vid_scan1.fadeTo(true)
                 }
                 2 -> {
 
                     uri2 = data?.data!!
-                    Glide.with(requireContext()).load(uri2).thumbnail(0.1f).into(vid_scan2)
+                    Glide.with(requireContext()).load(uri2).centerCrop().thumbnail(1f).into(vid_scan2)
                     logger.log(uri2.toString())
                     vid_scan2.fadeTo(true)
                     btnNon.visibility = View.GONE
