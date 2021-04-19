@@ -22,27 +22,18 @@ android {
         versionCode = AppConfig.versionCode
         versionName = AppConfig.versionName
 
+
         testInstrumentationRunner = AppConfig.androidTestInstrumentation
     }
 
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+
             proguardFiles(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
             )
-        }
-    }
-    flavorDimensions(AppConfig.dimension)
-    productFlavors {
-        create("staging") {
-            applicationIdSuffix = ".staging"
-            setDimension(AppConfig.dimension)
-        }
-
-        create("production") {
-            setDimension(AppConfig.dimension)
         }
     }
 

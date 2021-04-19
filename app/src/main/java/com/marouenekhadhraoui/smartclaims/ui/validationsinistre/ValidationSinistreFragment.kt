@@ -196,6 +196,7 @@ class ValidationSinistreFragment : Fragment() {
         adapter.setItem(list)
         viewPager2Validation.adapter = adapter
         dots_indicatorValidation.setViewPager2(viewPager2Validation)
+
     }
 
 

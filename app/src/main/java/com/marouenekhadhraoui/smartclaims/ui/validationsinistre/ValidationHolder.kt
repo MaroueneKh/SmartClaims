@@ -18,15 +18,18 @@ class ValidationHolder constructor(itemView: View) :
 
     fun bind(validation: ValidationModel) {
         itemView.image1.setImageURI(validation.uri1)
-        itemView.image2.setImageURI(validation.uri2)
+        Glide.with(itemView.context).load(validation.uri1).centerInside().into(itemView.image1)
+        Glide.with(itemView.context).load(validation.uri2).centerInside().into(itemView.image2)
 
         if (validation.uri3.toString().endsWith("jpg")) {
-            itemView.image3.setImageURI(validation.uri3)
-            itemView.image4.setImageURI(validation.uri4)
+            Glide.with(itemView.context).load(validation.uri3).centerInside().into(itemView.image3)
+            Glide.with(itemView.context).load(validation.uri4).centerInside().into(itemView.image4)
 
         } else {
-            Glide.with(itemView.context).load(validation.uri3).centerInside().thumbnail(0.8f).into(itemView.image3)
-            Glide.with(itemView.context).load(validation.uri4).centerInside().thumbnail(0.8f).into(itemView.image4)
+            Glide.with(itemView.context).load(validation.uri3).centerInside().thumbnail(0.8f)
+                .into(itemView.image3)
+            Glide.with(itemView.context).load(validation.uri4).centerInside().thumbnail(0.8f)
+                .into(itemView.image4)
 
         }
 
