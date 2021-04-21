@@ -45,7 +45,6 @@ class OptionsBottomSheetFragment : BottomSheetDialogFragment() {
 
         }
         txt_camera.setOnClickListener {
-            this
             dismissAllowingStateLoss()
             val intent = Intent(activity, CameraActivity::class.java)
             startActivityForResult(intent, 22)

@@ -54,52 +54,52 @@ class UploadFilesWorker(ctx: Context, params: WorkerParameters) : ListenableWork
             scan1ref.putFile(scan1!!.toUri()).addOnFailureListener {
                 // Handle unsuccessful uploads
                 completer.setException(it)
-            }.addOnSuccessListener { taskSnapshot ->
+            }.addOnSuccessListener {
                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                 // ...
                 scan2ref.putFile(scan2!!.toUri()).addOnFailureListener {
                     // Handle unsuccessful uploads
                     completer.setException(it)
-                }.addOnSuccessListener { taskSnapshot ->
+                }.addOnSuccessListener {
                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                     // ...
                     vid1ref.putFile(vid1!!.toUri()).addOnFailureListener {
                         completer.setException(it)
                         // Handle unsuccessful uploads
-                    }.addOnSuccessListener { taskSnapshot ->
+                    }.addOnSuccessListener {
                         // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                         // ...
                         vid2ref.putFile(vid2!!.toUri()).addOnFailureListener {
                             completer.setException(it)
                             // Handle unsuccessful uploads
-                        }.addOnSuccessListener { taskSnapshot ->
+                        }.addOnSuccessListener {
                             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                             // ...
 
                             degat1ref.putFile(degat1!!.toUri()).addOnFailureListener {
                                 completer.setException(it)
                                 // Handle unsuccessful uploads
-                            }.addOnSuccessListener { taskSnapshot ->
+                            }.addOnSuccessListener {
                                 // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                 // ...
 
                                 degat2ref.putFile(degat2!!.toUri()).addOnFailureListener {
                                     completer.setException(it)
                                     // Handle unsuccessful uploads
-                                }.addOnSuccessListener { taskSnapshot ->
+                                }.addOnSuccessListener {
                                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                     // ...
                                     degat3ref.putFile(degat3!!.toUri()).addOnFailureListener {
                                         completer.setException(it)
                                         // Handle unsuccessful uploads
-                                    }.addOnSuccessListener { taskSnapshot ->
+                                    }.addOnSuccessListener {
                                         // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                         // ...
 
                                         degat4ref.putFile(degat4!!.toUri()).addOnFailureListener {
                                             completer.setException(it)
                                             // Handle unsuccessful uploads
-                                        }.addOnSuccessListener { taskSnapshot ->
+                                        }.addOnSuccessListener {
                                             // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                                             // ...
 
@@ -119,7 +119,7 @@ class UploadFilesWorker(ctx: Context, params: WorkerParameters) : ListenableWork
 
 
     private fun createForegroundInfo(progress: String): ForegroundInfo {
-        val title = "upload en cours"
+        val title = "Upload en cours"
         val cancel = "cancel"
         // This PendingIntent can be used to cancel the worker
         val intent = WorkManager.getInstance(applicationContext)
@@ -129,6 +129,7 @@ class UploadFilesWorker(ctx: Context, params: WorkerParameters) : ListenableWork
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel()
         }
+
 
         val notification = NotificationCompat.Builder(applicationContext, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(title)

@@ -260,6 +260,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST)
 
+
     }
 
 

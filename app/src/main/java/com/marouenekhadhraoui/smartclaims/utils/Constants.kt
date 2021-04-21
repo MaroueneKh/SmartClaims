@@ -1,8 +1,7 @@
 package com.marouenekhadhraoui.smartclaims.utils
 
 const val TO_SIGNIN_OR_SIGNUP = "TO_SIGNIN_OR_SIGNUP"
-const val CAMERA_TO_SCAN = "CAMERA_TO_SCAN"
-const val BASE_URL = "http://059e7700e2a7.ngrok.io"
+const val BASE_URL = "http://97203d0f3724.ngrok.io"
 const val internetErr = "Network is down.\n" +
         "Please check\n" +
         "your INTERNET connection!"

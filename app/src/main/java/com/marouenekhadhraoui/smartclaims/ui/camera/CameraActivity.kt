@@ -98,7 +98,7 @@ class CameraActivity : AppCompatActivity() {
         cameraProvider.unbind(preview)
         cameraExecutor.shutdown()
         // Get a stable reference of the modifiable image capture use case
-        val imageCapture = imageCapture ?: return
+
 
         // Create time-stamped output file to hold the image
         photoFile = File(

@@ -185,6 +185,12 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Spinner
+                        android:id="@+id/agances_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp" />
+
+
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnNon"
                         android:layout_width="match_parent"

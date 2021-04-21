@@ -1,5 +1,6 @@
 package com.marouenekhadhraoui.smartclaims.newtork
 
+import com.marouenekhadhraoui.smartclaims.ui.dashboard.DossierModel
 import com.marouenekhadhraoui.smartclaims.ui.signin.AssureModel
 import com.marouenekhadhraoui.smartclaims.ui.signup.SignupModel
 
@@ -12,5 +13,12 @@ interface ApiHelper {
 
     suspend fun sendRequest(mail: String): List<AssureModel>
 
-    suspend fun newDossier(token: String, type: String, lat: String, lang: String): List<SignupModel>
+    suspend fun newDossier(
+        token: String,
+        type: String,
+        lat: String,
+        lang: String
+    ): List<SignupModel>
+
+    suspend fun getDossier(token: String): List<DossierModel>
 }

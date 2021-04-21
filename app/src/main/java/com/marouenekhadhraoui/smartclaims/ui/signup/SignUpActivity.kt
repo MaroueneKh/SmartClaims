@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +19,7 @@ import com.marouenekhadhraoui.smartclaims.utils.Status
 import com.marouenekhadhraoui.smartclaims.utils.TO_SIGNIN_OR_SIGNUP
 import com.marouenekhadhraoui.smartclaims.utils.internetErr
 import dagger.hilt.android.AndroidEntryPoint
-
+import kotlinx.android.synthetic.main.signup_activity.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,7 +36,9 @@ class SignUPActivity : AppCompatActivity() {
         setupBinding()
         setupNavigation()
         bindViewModel()
+        setSpinner()
         setupsignup()
+
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -90,6 +92,21 @@ class SignUPActivity : AppCompatActivity() {
                 startActivity(SignInActivity())
             }
         })
+    }
+
+    private fun setSpinner() {
+
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.agences_list,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            agances_spinner.adapter = adapter
+        }
     }
 
     fun startActivity(activity: Activity) {

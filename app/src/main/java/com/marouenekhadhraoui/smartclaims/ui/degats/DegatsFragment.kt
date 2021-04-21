@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.fragment_scan_constat.btnSuivant
 import kotlinx.android.synthetic.main.fragment_scan_constat.img_logo2
 import kotlinx.android.synthetic.main.fragment_scan_constat.textView3
 import kotlinx.android.synthetic.main.fragment_scan_constat.textView4
-import okhttp3.internal.notify
 import javax.inject.Inject
 
 
@@ -255,6 +254,7 @@ class DegatsFragment : Fragment() {
                 (2) -> {
                     if (data != null) {
                         fillList(data.data!!)
+                        logger.log("urié" + data.data!!)
                         uri2 = data.data!!
                         setAdapter()
                     }
@@ -263,6 +263,7 @@ class DegatsFragment : Fragment() {
                 (3) -> {
                     if (data != null) {
                         fillList(data.data!!)
+                        logger.log("uri3" + data.data!!)
                         uri3 = data.data!!
                         setAdapter()
                     }
@@ -272,11 +273,12 @@ class DegatsFragment : Fragment() {
                     if (data != null) {
                         fillList(data.data!!)
                         uri4 = data.data!!
-                        recyclerView.notify()
+                        logger.log("uri4" + data.data!!)
                         btnNon.visibility = View.GONE
                         btnNon.isClickable = false
                         btnSuivant.visibility = View.VISIBLE
                         btnSuivant.isClickable = true
+                        setAdapter()
                         setNavDirections()
                     }
 

@@ -97,6 +97,10 @@ android {
         implementation("androidx.work:work-runtime-ktx:2.5.0")
         implementation("com.android.support:support-compat:28.0.0")
         implementation("androidx.concurrent:concurrent-futures-ktx:1.1.0")
+        implementation("com.google.firebase:firebase-analytics:18.0.3")
+
+        // Add the SDK for Firebase Cloud Messaging
+        implementation("com.google.firebase:firebase-messaging:21.1.0")
 
         kapt("com.google.dagger:dagger-compiler:2.15")
         kapt("androidx.hilt:hilt-compiler:1.0.0-beta01")

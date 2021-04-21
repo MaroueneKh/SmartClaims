@@ -1,5 +1,6 @@
 package com.marouenekhadhraoui.smartclaims.newtork
 
+import com.marouenekhadhraoui.smartclaims.ui.dashboard.DossierModel
 import com.marouenekhadhraoui.smartclaims.ui.signin.AssureModel
 import com.marouenekhadhraoui.smartclaims.ui.signup.SignupModel
 import retrofit2.http.Headers
@@ -22,11 +23,17 @@ interface ApiService {
     suspend fun sendRequest(@Query(value = "mail") mail: String): List<AssureModel>
 
     @POST("api/newDossier")
-    suspend fun newDossier(@Query(value = "token") mail: String,
-                           @Query(value = "type") type: String,
-                           @Query(value = "lat") lat: String,
-                           @Query(value = "lang") lang: String
+    suspend fun newDossier(
+        @Query(value = "token") mail: String,
+        @Query(value = "type") type: String,
+        @Query(value = "lat") lat: String,
+        @Query(value = "lang") lang: String
     ): List<SignupModel>
+
+    @POST("api/afficherDossier")
+    suspend fun getDossier(
+        @Query(value = "token") token: String,
+    ): List<DossierModel>
 
 
 }

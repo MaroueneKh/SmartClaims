@@ -49,5 +49,13 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_capture_video">CaptureVideoActivity</string>
     <string name="title_activity_diaporama">DiaporamaActivity</string>
+    <string-array name="agences_list">
+        <item>Agence Tunis</item>
+        <item>Agence Sfax</item>
+        <item>Agence Sousse</item>
+        <item>Agence Gabes</item>
+        <item>Agence Tozeur</item>
+
+    </string-array>
 
 </resources>

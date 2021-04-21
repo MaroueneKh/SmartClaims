@@ -1,26 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.dashboard.DashboardFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-        android:id="@+id/dots_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="146dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="146dp"
-        app:dotsColor="@color/greylight"
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.marouenekhadhraoui.smartclaims.ui.dashboard.DashboardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.dashboard.DashboardFragment">
+
+
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            app:dotsColor="@color/greylight"
         app:dotsCornerRadius="8dp"
         app:dotsSize="16dp"
         app:dotsSpacing="4dp"
-        app:dotsWidthFactor="2.5"
-        app:layout_constraintEnd_toEndOf="parent"
+            app:dotsWidthFactor="2.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView"
         app:progressMode="true"
         app:selectedDotColor="@color/mainblue" />
 
@@ -51,181 +59,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_logo" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="415dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="185dp"
-        android:elevation="40dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="10dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_logo2"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewDashboard"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="25dp"
-            android:paddingRight="20dp"
-            android:src="@drawable/ic_eye_close_up" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="false"
             android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_logo"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Dossier N 399414"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_logo"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/Valide"
-                android:textAlignment="center"
-                android:textColor="@color/green"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:padding="4dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </com.google.android.material.card.MaterialCardView>
+        </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView2"
-        android:layout_width="415dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="185dp"
-        android:layout_marginTop="172dp"
-        android:layout_marginEnd="185dp"
-        android:elevation="40dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="10dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_logo3"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/llProgressBar"
+            layout="@layout/layout_progess_bar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="25dp"
-            android:paddingRight="20dp"
-            android:src="@drawable/ic_eye_close_up" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:clipToPadding="false"
             android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_logo"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Dossier N 399415"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_logo"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/Valide"
-                android:textAlignment="center"
-                android:textColor="@color/green"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
+            android:padding="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
-        android:layout_width="415dp"
-        android:layout_height="wrap_content"
-        android:elevation="40dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="10dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView2">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_logo9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_marginTop="25dp"
-            android:paddingRight="20dp"
-            android:src="@drawable/ic_eye_close_up" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_logo"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Dossier N 399415"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/img_logo"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/Valide"
-                android:textAlignment="center"
-                android:textColor="@color/green"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/img_logo"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </com.google.android.material.card.MaterialCardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+</layout>
