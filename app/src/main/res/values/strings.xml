@@ -26,6 +26,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAPTNg63-NFTlo2x2oKJyky6o4_ZAacHYA</string>
     <string name="Suivant">Suivant</string>
+    <string name="Jours">Jours</string>
+    <string name="Heures">Heures</string>
+    <string name="Minutes">Minutes</string>
+    <string name="Seconds">Seconds</string>
     <string name="Valider">Valider</string>
     <string name="Scanner">Scanner les fichiers</string>
     <string name="UploadVideos">Uploader les videos</string>
@@ -33,6 +37,8 @@
     <string name="ajouterimages">Ajouter Images</string>
     <string name="dossier">Dossier sinistre</string>
     <string name="Lieu">Lieu de l\'accident</string>
+    <string name="Temps">Temps restant</string>
+    <string name="TempsGris">Temps restant pour déposer le constat</string>
     <string name="aucun">Aucun fichier trouvé</string>
     <string name="Merciscanner">Merci de scanner le constat et l\'attestation de l\'assureur B</string>
     <string name="MerciDegats">Merci de prendre au moins 4 photos pour identifier les dégats</string>
@@ -57,5 +63,6 @@
         <item>Agence Tozeur</item>
 
     </string-array>
+    <string name="title_activity_count_down">CountDownActivity</string>
 
 </resources>

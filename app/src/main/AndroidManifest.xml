@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-feature android:name="android.hardware.camera.any" />
 
@@ -24,9 +26,13 @@
         android:theme="@style/Theme.SmartClaims"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.countdown.CountDownActivity"
+            android:label="@string/title_activity_count_down"
+            android:theme="@style/Theme.SmartClaims.NoActionBar"></activity>
+        <activity
             android:name=".ui.validationsinistre.DiaporamaActivity"
             android:label="@string/title_activity_diaporama"
-            android:theme="@style/Theme.SmartClaims.NoActionBar"></activity>
+            android:theme="@style/Theme.SmartClaims.NoActionBar" />
         <activity
             android:name=".ui.videoSinistre.CaptureVideoActivity"
             android:label="@string/title_activity_capture_video"

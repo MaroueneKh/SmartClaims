@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.iid.FirebaseInstanceId
 import com.marouenekhadhraoui.smartclaims.Logger
 import com.marouenekhadhraoui.smartclaims.R
 import com.marouenekhadhraoui.smartclaims.ui.main.MainActivity
@@ -40,6 +41,11 @@ class SignInActivity : AppCompatActivity() {
         setupNavigation()
         setuplogin()
         bindViewModel()
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener { instanceIdResult ->
+            val token = instanceIdResult.token //Token
+            logger.log("winou")
+            logger.log(token)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -112,6 +118,7 @@ class SignInActivity : AppCompatActivity() {
         intent.action = TO_SIGNIN_OR_SIGNUP
         startActivity(intent)
         finish()
+
     }
 
 }

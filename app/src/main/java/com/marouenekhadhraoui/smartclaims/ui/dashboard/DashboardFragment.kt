@@ -19,7 +19,6 @@ import com.marouenekhadhraoui.smartclaims.utils.Status
 import com.marouenekhadhraoui.smartclaims.utils.internetErr
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_declaration.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,7 +56,6 @@ class DashboardFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        constraintLayout.visibility = View.GONE
         bindViewModel()
         observeDossiers()
 

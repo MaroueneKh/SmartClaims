@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.marouenekhadhraoui.smartclaims.ui.camera.CameraViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.countdown.CountDownActivity">
+
+        <ImageButton
+
+            android:id="@+id/camera_capture_button"
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/ic_timer_blue"
+            android:elevation="2dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/Temps"
+
+            android:textAlignment="center"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/camera_capture_button" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto_regular"
+            android:text="@string/TempsGris"
+            android:textAlignment="center"
+            android:textColor="@color/greylight"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="350dp"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+
+                    app:cardCornerRadius="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/daysText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="06"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/joursgris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/Jours"
+                    android:textAlignment="center"
+                    android:textColor="@color/greylight"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/days" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/hours"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintStart_toEndOf="@+id/days"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/hoursText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="06"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/hoursgris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/Heures"
+                    android:textAlignment="center"
+                    android:textColor="@color/greylight"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/joursgris"
+                    app:layout_constraintTop_toBottomOf="@+id/hours" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/minutes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/minutesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="06"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/secondsgris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/Seconds"
+                    android:textAlignment="center"
+                    android:textColor="@color/greylight"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/minutes" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/seconds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="42dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toStartOf="@+id/minutes"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/secondsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:fontFamily="@font/roboto_bold"
+                        android:text="06"
+                        android:textAlignment="center"
+                        android:textSize="30sp" />
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/minutessgris"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="32dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@string/Minutes"
+                    android:textAlignment="center"
+                    android:textColor="@color/greylight"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/secondsgris"
+                    app:layout_constraintStart_toEndOf="@+id/hoursgris"
+                    app:layout_constraintTop_toBottomOf="@+id/seconds" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -23,7 +23,7 @@ import com.marouenekhadhraoui.smartclaims.utils.*
 class UploadFilesWorker(ctx: Context, params: WorkerParameters) : ListenableWorker(ctx, params) {
 
     override fun startWork(): ListenableFuture<Result> {
-        var scan1 = inputData.getString(SCAN1)
+        val scan1 = inputData.getString(SCAN1)
         val scan2 = inputData.getString(SCAN2)
         val vid1 = inputData.getString(VID1)
         val vid2 = inputData.getString(VID2)
@@ -36,7 +36,7 @@ class UploadFilesWorker(ctx: Context, params: WorkerParameters) : ListenableWork
         val storage = Firebase.storage
         val storageRef = storage.reference
 
-        val progress = "Starting Download"
+        val progress = "Starting Download ..."
         setForegroundAsync(createForegroundInfo(progress))
 
         val scan1ref = storageRef.child("$id/images/scan1.jpg")
@@ -163,9 +163,5 @@ class UploadFilesWorker(ctx: Context, params: WorkerParameters) : ListenableWork
         }
     }
 
-    companion object {
-        const val KEY_INPUT_URL = "KEY_INPUT_URL"
-        const val KEY_OUTPUT_FILE_NAME = "KEY_OUTPUT_FILE_NAME"
-    }
 
 }

@@ -23,6 +23,7 @@ android {
         versionName = AppConfig.versionName
 
 
+
         testInstrumentationRunner = AppConfig.androidTestInstrumentation
     }
 

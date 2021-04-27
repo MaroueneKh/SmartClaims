@@ -1,5 +1,6 @@
 package com.marouenekhadhraoui.smartclaims.ui.dashboard
 
+
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,6 @@ class DossierHolder constructor(itemView: View) :
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.layout_dossier_item, parent, false)
             )
-
     @RequiresApi(Build.VERSION_CODES.M)
     fun bind(dossier: DossierModel) {
         itemView.textView9.text = "Dossier n " + dossier.id.toString()
@@ -29,9 +29,11 @@ class DossierHolder constructor(itemView: View) :
 
             itemView.textView12.setTextColor(itemView.context.getColor(R.color.orange))
         } else if (dossier.etat == "En attente du depot") {
+
             Glide.with(itemView.context).load(R.drawable.ic_groupe_16124).centerInside()
                 .into(itemView.img_logo9)
             itemView.textView12.setTextColor(itemView.context.getColor(R.color.orange))
+
         }
 
     }

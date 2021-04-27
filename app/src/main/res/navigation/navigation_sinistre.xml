@@ -60,10 +60,19 @@
         android:id="@+id/dashboardFragment"
         android:name="com.marouenekhadhraoui.smartclaims.ui.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard">
+        <action
+            android:id="@+id/action_dashboardFragment_to_countDownFragment"
+            app:destination="@id/countDownFragment" />
+    </fragment>
     <fragment
         android:id="@+id/diaporamaFragment"
         android:name="com.marouenekhadhraoui.smartclaims.ui.validationsinistre.DiaporamaFragment"
         android:label="DiaporamaFragment"
         tools:layout="@layout/fragment_diaporama" />
+    <fragment
+        android:id="@+id/countDownFragment"
+        android:name="com.marouenekhadhraoui.smartclaims.CountDownFragment"
+        android:label="fragment_count_down"
+        tools:layout="@layout/fragment_count_down" />
 </navigation>
